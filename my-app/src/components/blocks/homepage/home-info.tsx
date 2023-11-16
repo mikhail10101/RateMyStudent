@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import { black_poppins } from '@/lib/fonts'
-import { buttonVariants } from '../ui/button'
+import { buttonVariants } from '../../ui/button'
 
 
 export default function HomeInfo() {

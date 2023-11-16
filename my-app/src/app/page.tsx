@@ -1,7 +1,7 @@
-import HomeNav from "@/components/blocks/home-navigation"
-import HomeImage from "@/components/blocks/home-image"
-import HomeInfo from "@/components/blocks/home-info"
-import HomeFooter from "@/components/blocks/home-footer"
+import HomeNav from "@/components/blocks/homepage/home-navigation"
+import HomeImage from "@/components/blocks/homepage/home-image"
+import HomeInfo from "@/components/blocks/homepage/home-info"
+import HomeFooter from "@/components/blocks/homepage/home-footer"
 
 export default function Home() {
   return (
