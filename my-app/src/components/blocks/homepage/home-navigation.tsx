@@ -5,7 +5,7 @@ import { buttonVariants } from '@/components/ui/button'
 export default function HomeNav() {
     return (
         <>
-            <div className="w-screen h-24 flex flex-row flex-nowrap justify-evenly items-center">
+            <div className="h-24 flex flex-row flex-nowrap justify-evenly items-center">
                 <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"
                     className="ml-12 mr-3">
                     <Image
@@ -33,12 +33,8 @@ export default function HomeNav() {
                         alt="twitter"
                     />
                 </a>
-                <Link className={`mr-4` } href="/login">
-                    Log In
-                </Link>
-                <Link className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`} href="/login">
-                    Sign Up
-                </Link>
+                <Link href="/login" className="mr-4">Log In</Link>
+                <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign Up</Link>
             </div>
         </>
         

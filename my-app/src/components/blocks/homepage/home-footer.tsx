@@ -1,8 +1,6 @@
-import Image from "next/image"
-
 export default function HomeFooter() {
     return (
-        <div className="bg-black w-screen h-20 flex flex-row mt-[10rem] items-center">
+        <div className="bg-black h-20 flex flex-row mt-[10rem] items-center">
             <div className="flex-shrink basis-1/12"></div>
             <div className="text-white text-left  basis-5/12">
                 <p>All rights reserved. 2023.</p>

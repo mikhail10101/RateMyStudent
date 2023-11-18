@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { black_poppins } from '@/lib/fonts'
 import { buttonVariants } from '../../ui/button'
 
-
 export default function HomeInfo() {
     return (
         <div className={"mt-[20rem] flex flex-col items-center"}>
@@ -12,8 +11,8 @@ export default function HomeInfo() {
 
             <p className="text-xl">Love RMS? Let's make it official.</p>
 
-            <div className="w-screen flex flex-row justify-evenly mt-20 min-[600px]:flex-nowrap flex-wrap">
-                <div className="flex flex-col items-center min-[600px]:ml-20">
+            <div className="w-11/12 flex flex-row justify-center mt-20 min-[600px]:flex-nowrap flex-wrap gap-24">
+                <div className="flex flex-col items-center ">
                     <Image
                         src="/writing.png"
                         height={300}
@@ -31,7 +30,7 @@ export default function HomeInfo() {
                     />
                     <p className="w-[280px] text-center font-black text-[30px]">Maintain your privacy</p>
                 </div>
-                <div className="flex flex-col items-center min-[600px]:mr-20">
+                <div className="flex flex-col items-center">
                     <Image
                         src="/highscore.png"
                         height={300}
@@ -42,9 +41,7 @@ export default function HomeInfo() {
                 </div>
             </div>
 
-            <Link className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white rounded-3xl my-12 mx-10 w-48 font-bold`} href="/login">
-                    Sign up now!
-            </Link>
+            <Link href="/login" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white rounded-3xl my-12 mx-10 w-48 font-bold`}>Sign up now!</Link>
         </div>
     )
 }

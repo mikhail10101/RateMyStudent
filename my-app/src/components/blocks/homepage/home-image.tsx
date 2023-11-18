@@ -3,7 +3,7 @@ import Search from './search'
 
 export default function HomeImage() {
     return (
-        <div className="flex flex-col items-center bg-[url('/students_dark.jpg')] bg-center bg-cover w-screen h-[40rem]">
+        <div className="flex flex-col items-center bg-[url('/students_dark.jpg')] bg-center bg-cover h-[40rem]">
             <Image
                 src="/logo_transparent.png"
                 height={100}
