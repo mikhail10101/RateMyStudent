@@ -33,7 +33,9 @@ const students = [
         lastname: 'Potter',
         birthday: '1980-07-30',
         email: 'harry.potter@gmail.com',
-        school: 'Hogwarts School of Wizardry and Witchcraft'
+        school: 'Hogwarts School of Wizardry and Witchcraft',
+        rating: 5.5,
+        amount: 67
     },
     {
         id: '36b34781-717d-4b7d-9380-c54acebb0ac8',
@@ -41,7 +43,9 @@ const students = [
         lastname: 'Jackson',
         birthday: '1993-08-18',
         email: 'percy.jackson@gmail.com',
-        school: 'Camp Half-Blood'
+        school: 'Camp Half-Blood',
+        rating: 6.6,
+        amount: 40
         
     },
     {
@@ -50,7 +54,29 @@ const students = [
         lastname: 'Fray',
         birthday: '1991-08-23',
         email: 'clary.fairchild@gmail.com',
-        school: "Saint Francis Xavier School"   
+        school: "Saint Francis Xavier School" ,
+        rating: 7.7,
+        amount: 14
+    },
+    {
+        id: '41d7f889-f446-49dc-9acd-7a0dcde92408',
+        firstname: 'Minji',
+        lastname: 'Kim',
+        birthday: '2004-05-07',
+        email: 'kimminji@gmail.com',
+        school: "Hanlim Performing Arts High School" ,
+        rating: 10,
+        amount: 138
+    },
+    {
+        id: '91761326-d219-4fb7-9947-9f9e484f8d8c',
+        firstname: 'Hanni',
+        lastname: 'Pham',
+        birthday: '2004-10-6',
+        email: 'hannipham@gmail.com',
+        school: "Our Lady of Mercy College" ,
+        rating: 10,
+        amount: 138
     }
 ]
 

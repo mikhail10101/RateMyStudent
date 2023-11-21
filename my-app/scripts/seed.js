@@ -61,7 +61,9 @@ async function seedStudents(client) {
         lastname VARCHAR(255) NOT NULL,
         birthday DATE,
         email TEXT NOT NULL UNIQUE,
-        school VARCHAR(255) NOT NULL
+        school VARCHAR(255) NOT NULL,
+        rating FLOAT NOT NULL,
+        amount INT NOT NULL
       );
     `;
 
@@ -72,8 +74,8 @@ async function seedStudents(client) {
     const insertedStudents = await Promise.all(
       students.map(async (student) => {
         return client.sql`
-        INSERT INTO students (id, firstname, lastname, birthday, email, school)
-        VALUES (${student.id}, ${student.firstname}, ${student.lastname}, ${student.birthday}, ${student.email}, ${student.school})
+        INSERT INTO students (id, firstname, lastname, birthday, email, school, rating, amount)
+        VALUES (${student.id}, ${student.firstname}, ${student.lastname}, ${student.birthday}, ${student.email}, ${student.school}, ${student.rating}, ${student.amount})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),
