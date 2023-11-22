@@ -1,36 +1,46 @@
 import { Student } from "@/lib/definitions"
 import clsx from "clsx"
-import { black_poppins } from "@/lib/fonts"
+import { black_poppins, nanum } from "@/lib/fonts"
+import SoundBar from "./soundbar"
 
 type CardProps = {
     firstname: string,
     lastname: string,
     school: string,
+    major: string,
     rating: number,
-    amount: number
+    amount: number,
+    noise: number
 }
 
-export default function StudentCard({ firstname, lastname, school, rating, amount }: CardProps) {
+export default function StudentCard({ firstname, lastname, school, major, rating, amount, noise }: CardProps) {
     return (
-        <div className="flex flex-row">
-            <div className="flex flex-col items-center">
-                <p>QUALITY</p>
+        <div className="flex flex-row items-center gap-2 p-4 bg-zinc-100 h-36">
+            <div className="flex flex-col items-center m-4 space-y-1">
+                <p className={`text-xs font-bold`}>QUALITY</p>
                 <div className={clsx({
-                    ["w-[3rem] h-[3rem] text-3xl"]: true,
-                    ["bg-sky-300"]: 0 <= rating && rating < 3,
-                    ["bg-blue-700"]: 3 <= rating && rating < 4.5,
-                    ["bg-rose-700"]: 4.5 <= rating && rating < 6,
-                    ["bg-orange-600"]: 6 <= rating && rating < 7,
-                    ["bg-yellow-300"]: 7 <= rating && rating < 9,
+                    ["w-[5rem] h-[4rem] text-3xl flex items-center justify-center"]: true,
+                    ["bg-sky-200"]: 0 <= rating && rating < 3,
+                    ["bg-blue-500"]: 3 <= rating && rating < 4.5,
+                    ["bg-rose-200"]: 4.5 <= rating && rating < 6,
+                    ["bg-orange-200"]: 6 <= rating && rating < 7,
+                    ["bg-yellow-200"]: 7 <= rating && rating < 9,
                     ["bg-white"]: 9 <= rating && rating <= 10,
                 })}>
-                    <p>{rating}</p>
+                    <p className={`${black_poppins.className}`}>{rating}</p>
                 </div>
-                <p>{amount} ratings</p>
+                <p className="text-xs">{amount} ratings</p>
             </div>
-            <div>
-                <p className={`${black_poppins.className}`}>{firstname} {lastname}</p>
+            <div className="space-y-2 mr-auto">
+                <div>
+                    <p className={`${black_poppins.className} text-lg`}>{firstname} {lastname}</p>
+                    <p className="text-xs">{major}</p>
+                </div>
                 <p>{school}</p>
+            </div>
+            <div className="flex flex-col w-8 space-y-1 mr-5 mt-3 items-center">
+                <SoundBar noise={noise}/>
+                <p className="text-xs font-bold">Noise</p>
             </div>
         </div>
     )

@@ -59,11 +59,13 @@ async function seedStudents(client) {
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         firstname VARCHAR(255) NOT NULL,
         lastname VARCHAR(255) NOT NULL,
-        birthday DATE,
+        birthday DATE NOT NULL,
         email TEXT NOT NULL UNIQUE,
         school VARCHAR(255) NOT NULL,
+        major VARCHAR(255) NOT NULL,
         rating FLOAT NOT NULL,
-        amount INT NOT NULL
+        amount INT NOT NULL,
+        noise INT NOT NULL
       );
     `;
 
@@ -74,8 +76,8 @@ async function seedStudents(client) {
     const insertedStudents = await Promise.all(
       students.map(async (student) => {
         return client.sql`
-        INSERT INTO students (id, firstname, lastname, birthday, email, school, rating, amount)
-        VALUES (${student.id}, ${student.firstname}, ${student.lastname}, ${student.birthday}, ${student.email}, ${student.school}, ${student.rating}, ${student.amount})
+        INSERT INTO students (id, firstname, lastname, birthday, email, school, major, rating, amount, noise)
+        VALUES (${student.id}, ${student.firstname}, ${student.lastname}, ${student.birthday}, ${student.email}, ${student.school}, ${student.major}, ${student.rating}, ${student.amount}, ${student.noise})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),

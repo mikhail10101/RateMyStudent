@@ -5,6 +5,8 @@ export type Student = {
     birthday: string,
     email: string,
     school: string,
+    major: string,
     rating: number,
-    amount: number
+    amount: number,
+    noise: number
 }

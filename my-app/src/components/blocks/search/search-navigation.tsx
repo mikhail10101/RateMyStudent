@@ -4,12 +4,25 @@ import Image from "next/image"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 
-
-function HandleSearch(term: string) {
-    console.log(term);
-}
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useDebouncedCallback } from 'use-debounce'
 
 export default function SearchNavigation() {
+    const searchParams = useSearchParams()
+    const pathname = usePathname()
+    const { replace } = useRouter()
+
+    const handleSearch = useDebouncedCallback((term) => {
+        const params = new URLSearchParams(searchParams)
+        params.set('page','1')
+        if (term) {
+            params.set('query',term)
+        } else {
+            params.delete('query')
+        }
+        replace(`${pathname}?${params.toString()}`)
+    }, 300)
+
     return (
         <>
             <div className="fixed w-full flex flex-row bg-black items-center h-16">
@@ -35,8 +48,9 @@ export default function SearchNavigation() {
                             className="block rounded-3xl text-base outline-0 placeholder:text-gray-500 h-[2.5rem] w-[20rem] text-left pl-3"
                             placeholder="Enter name"
                             onChange={(e) => {
-                                HandleSearch(e.target.value);
+                                handleSearch(e.target.value);
                             }}
+                            defaultValue={searchParams.get('query')?.toString()}
                         />
                     </div>
                 </div>
