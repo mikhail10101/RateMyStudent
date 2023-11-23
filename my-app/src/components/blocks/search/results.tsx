@@ -7,7 +7,6 @@ export default async function Results({query, currentPage}:{
 }) {
     const students = await fetchFilteredInvoices(query, currentPage)
 
-
     return (
         <div className="space-y-8">
             <p className="text-2xl font-medium">Found {students.length} results</p>

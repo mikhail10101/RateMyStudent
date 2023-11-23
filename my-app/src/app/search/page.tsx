@@ -17,7 +17,7 @@ export default async function Page({ searchParams }: {
     return (
         <div className="flex flex-col items-center">
             <SearchNavigation />
-            <div className="min-h-[80%]">
+            <div className="min-h-screen">
                 <div className="w-[46rem] mt-20">
                     <Results query={query} currentPage={currentPage}/>
                 </div>
