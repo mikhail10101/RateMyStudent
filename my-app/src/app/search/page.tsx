@@ -1,4 +1,4 @@
-import { fetchStudents, fetchInvoicesPages } from "@/lib/data"
+import { fetchStudentPages } from "@/lib/data"
 import SearchNavigation from "@/components/blocks/search/search-navigation"
 import Results from "@/components/blocks/search/results"
 import Pagination from "@/components/blocks/search/pagination"
@@ -12,7 +12,7 @@ export default async function Page({ searchParams }: {
 }) {
     const query = searchParams?.query || ''
     const currentPage = Number(searchParams?.page) || 1
-    const totalPages = await fetchInvoicesPages(query)
+    const totalPages = await fetchStudentPages(query)
 
     return (
         <div className="flex flex-col items-center">

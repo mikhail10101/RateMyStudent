@@ -14,7 +14,7 @@ export async function fetchStudents() {
 }
 
 const ITEMS_PER_PAGE = 7;
-export async function fetchFilteredInvoices(
+export async function fetchFilteredStudents(
   query: string,
   currentPage: number,
 ) {
@@ -39,7 +39,7 @@ export async function fetchFilteredInvoices(
   }
 }
 
-export async function fetchInvoicesPages(query: string) {
+export async function fetchStudentPages(query: string) {
     noStore();
     try {
       const count = await sql`SELECT COUNT(*)
@@ -57,3 +57,22 @@ export async function fetchInvoicesPages(query: string) {
       throw new Error('Failed to fetch total number of invoices.');
     }
   }
+
+export async function fetchFilteredStudentsCount(query: string) {
+  noStore();
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM students
+    WHERE
+      students.firstname ILIKE ${`%${query}%`} OR
+      students.lastname ILIKE ${`%${query}%`} OR
+      students.email::text ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Number(count.rows[0].count);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of invoices.');
+  }
+}

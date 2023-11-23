@@ -1,15 +1,15 @@
-import { fetchFilteredInvoices } from "@/lib/data"
+import { fetchFilteredStudents, fetchFilteredStudentsCount } from "@/lib/data"
 import StudentCard from "./student-card"
 
 export default async function Results({query, currentPage}:{
     query: string
     currentPage: number
 }) {
-    const students = await fetchFilteredInvoices(query, currentPage)
-
+    const students = await fetchFilteredStudents(query, currentPage)
+    const amountStudents = await fetchFilteredStudentsCount(query)
     return (
         <div className="space-y-8">
-            <p className="text-2xl font-medium">Found {students.length} results</p>
+            <p className="text-2xl font-medium">Found {amountStudents} results</p>
             {students.map((student) => {
                 return (
                     <StudentCard
