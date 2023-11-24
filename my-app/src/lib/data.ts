@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres'
 import { unstable_noStore as noStore } from 'next/cache'
-import { Student } from './definitions'
+import { Student, Rating } from './definitions'
 
 export async function fetchStudents() {
     noStore()
@@ -74,5 +74,50 @@ export async function fetchFilteredStudentsCount(query: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of invoices.');
+  }
+}
+
+export async function fetchStudentById(id: string) {
+  noStore()
+  try {
+    const data = await sql<Student>`
+      SELECT *
+      FROM students
+      WHERE students.id = ${id};
+    `
+    return data.rows[0]
+  } catch(error) {
+    console.log('Database Error: ', error)
+  }
+}
+
+export async function fetchRatingIdsById(id: string) {
+  noStore()
+  try {
+    const data = await sql`
+      SELECT id
+      FROM ratings
+      WHERE ratings.student_id = ${id};
+    `
+    return data.rows
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch RatingIds')
+  }
+}
+
+export async function fetchRatingById(id: string) {
+  noStore()
+  try {
+    const data = await sql<Rating>`
+      SELECT *
+      FROM ratings
+      WHERE ratings.id = ${id}
+    `
+    console.log(data.rows[0])
+    return data.rows[0]
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch Ratings')
   }
 }

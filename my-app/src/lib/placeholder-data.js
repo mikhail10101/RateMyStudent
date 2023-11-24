@@ -222,7 +222,50 @@ const students = [
     },
 ];
 
+const ratings = [
+    {
+        id: '7e6a2d43-53d6-4a6d-b592-eb5f095d5d9e',
+        student_id: '9f64ccf0-aba6-46a5-84df-fb4734595fcb',
+        commenter_id: '410544b2-4001-4271-9855-fec4b6a6442a',
+        rating: 8,
+        noise: 4,
+        classroom: "CSS 143",
+        grade: "A+",
+        attendance: 80,
+        likes: 0,
+        dislikes: 0,
+        comment: "Lorem ipsum dolor sit amet. Rem dolores sint qui accusantium consequuntur ut dolores dolores qui fugiat odio est nulla voluptas id molestias consequatur."
+    },
+    {
+        id: '541874a9-6b9c-4dbb-81c0-19bddc4b63ca',
+        student_id: '9f64ccf0-aba6-46a5-84df-fb4734595fcb',
+        commenter_id: '410544b2-4001-4271-9855-fec4b6a6442a',
+        rating: 3,
+        noise: 5,
+        classroom: "BWRIT 142",
+        grade: "C",
+        attendance: 34,
+        likes: 0,
+        dislikes: 0,
+        comment: "Et dolores quasi ea veritatis voluptates qui nesciunt quaerat ea nesciunt ipsa et placeat perspiciatis et ullam enim non molestiae perferendis. Ad iure debitis sit sunt voluptatibus aut dolor voluptatum vel molestiae dignissimos quo iure maiores cum dignissimos velit. Et magni laborum sed possimus magnam aut atque consequuntur a necessitatibus alias."
+    },
+    {
+        id: '4e49c972-09eb-4e10-b979-2c062e033605',
+        student_id: '9f64ccf0-aba6-46a5-84df-fb4734595fcb',
+        commenter_id: '410544b2-4001-4271-9855-fec4b6a6442a',
+        rating: 6,
+        noise: 5,
+        classroom: "BUS 143",
+        grade: "B+",
+        attendance: 78,
+        likes: 0,
+        dislikes: 0,
+        comment: "Eum earum voluptatem et minus quas et eius asperiores ut vitae odio et modi totam. Rem quas dolor At velit eligendi aut omnis minus qui nemo repudiandae. Sit deleniti odio et impedit eveniet vel molestias repellendus sed autem ullam ea placeat impedit qui molestiae iure?"
+    },
+]
+
 module.exports = {
     users,
-    students
+    students,
+    ratings
 }

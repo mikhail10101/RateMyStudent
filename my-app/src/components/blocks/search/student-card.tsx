@@ -2,8 +2,10 @@ import { Student } from "@/lib/definitions"
 import clsx from "clsx"
 import { black_poppins, nanum } from "@/lib/fonts"
 import SoundBar from "./soundbar"
+import Link from "next/link"
 
 type CardProps = {
+    id: string,
     firstname: string,
     lastname: string,
     school: string,
@@ -13,9 +15,9 @@ type CardProps = {
     noise: number
 }
 
-export default function StudentCard({ firstname, lastname, school, major, rating, amount, noise }: CardProps) {
+export default function StudentCard({ id, firstname, lastname, school, major, rating, amount, noise }: CardProps) {
     return (
-        <div className="flex flex-row items-center gap-2 p-4 bg-zinc-100 h-36">
+        <Link href={`/student/${id}`} className="flex flex-row items-center gap-2 p-4 bg-zinc-100 h-36">
             <div className="flex flex-col items-center m-4 space-y-1">
                 <p className={`text-xs font-bold`}>QUALITY</p>
                 <div className={clsx({
@@ -29,19 +31,19 @@ export default function StudentCard({ firstname, lastname, school, major, rating
                 })}>
                     <p className={`${black_poppins.className}`}>{rating}</p>
                 </div>
-                <p className="text-xs">{amount} ratings</p>
+            <p className="text-xs">{amount} ratings</p>
             </div>
             <div className="space-y-2 mr-auto">
-                <div>
-                    <p className={`${black_poppins.className} text-lg`}>{firstname} {lastname}</p>
-                    <p className="text-xs">{major}</p>
-                </div>
-                <p>{school}</p>
+            <div>
+                <p className={`${black_poppins.className} text-lg`}>{firstname} {lastname}</p>
+                <p className="text-xs">{major}</p>
+            </div>
+            <p>{school}</p>
             </div>
             <div className="flex flex-col w-8 space-y-1 mr-5 mt-3 items-center">
                 <SoundBar noise={noise}/>
                 <p className="text-xs font-bold">Noise</p>
             </div>
-        </div>
+        </Link>
     )
 }

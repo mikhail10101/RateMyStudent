@@ -13,6 +13,7 @@ export default async function Results({query, currentPage}:{
             {students.map((student) => {
                 return (
                     <StudentCard
+                        id={student.id.toString()}
                         key={student.id.toString()}
                         firstname={student.firstname}
                         lastname={student.lastname}

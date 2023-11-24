@@ -1,6 +1,6 @@
 const { db } = require('@vercel/postgres')
 const bcrypt = require('bcrypt')
-const { users, students } = require('../src/lib/placeholder-data.js')
+const { users, students, ratings } = require('../src/lib/placeholder-data.js')
 
 async function seedUsers(client) {
     try {
@@ -45,7 +45,7 @@ async function seedUsers(client) {
 async function main() {
     const client = await db.connect();
 
-    await seedUsers(client);
+    await seedRatings(client);
 
     await client.end();
 }
@@ -95,12 +95,48 @@ async function seedStudents(client) {
   }
 }
 
-async function main() {
-  const client = await db.connect();
+async function seedRatings(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
 
-  await seedStudents(client);
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS ratings (
+        id UUID DEFAULT uuid_generate_v4() NOT NULL,
+        student_id UUID DEFAULT uuid_generate_v4() NOT NULL,
+        commenter_id UUID DEFAULT uuid_generate_v4() NOT NULL,
+        rating INT,
+        noise INT,
+        classroom VARCHAR(30) NOT NULL,
+        grade VARCHAR(30),
+        attendance INT,
+        likes INT NOT NULL,
+        dislikes INT NOT NULL,
+        comment VARCHAR(1023)
+      );
+    `
+      
+    console.log(`Created "ratings" table`);
+    console.log(ratings)
 
-  await client.end();
+    const insertedRatings = await Promise.all(
+      ratings.map(async (rating) => {
+        return client.sql`
+        INSERT INTO ratings (id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment)
+        VALUES (${rating.id}, ${rating.student_id}, ${rating.commenter_id}, ${rating.rating}, ${rating.noise}, ${rating.classroom}, ${rating.grade}, ${rating.attendance}, ${rating.likes}, ${rating.dislikes}, ${rating.comment})
+        `
+      })
+    )
+
+    console.log(`Seeded ${insertedRatings.length} ratings`);
+    return {
+      createTable,
+      ratings: insertedRatings,
+    }
+
+  } catch (error) {
+    console.log('Error seeding ratings:', error)
+    throw error
+  }
 }
 
 main().catch((err) => {

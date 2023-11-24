@@ -16,7 +16,10 @@ const formSchema = z.object({
     searched: z.string()
 })
 
-export default function Search({ placeholder }: { placeholder: string }) {
+export default function Search({placeholder, tailwind}:{
+    placeholder: string
+    tailwind: string
+}) {
     const { push } = useRouter()
     const searchParams = useSearchParams()
 
@@ -29,6 +32,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         const term = values.searched
+
+        console.log("Hi!")
 
         const params = new URLSearchParams(searchParams)
         params.set('page','1')
@@ -51,7 +56,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
                             <FormControl>
                                 <input
                                     id="searched"
-                                    className="block rounded-3xl text-xl outline-0 placeholder:text-gray-500 h-[3.5rem] min-[670px]:w-[30rem] min-[670px]:text-left w-[20rem] text-center min-[670px]:pl-7"
+                                    className={tailwind}
                                     placeholder={placeholder}
                                     {...field}
                                 />
