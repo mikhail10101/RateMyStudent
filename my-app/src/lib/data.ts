@@ -114,7 +114,6 @@ export async function fetchRatingById(id: string) {
       FROM ratings
       WHERE ratings.id = ${id}
     `
-    console.log(data.rows[0])
     return data.rows[0]
   } catch (error) {
     console.log('Database error', error)
