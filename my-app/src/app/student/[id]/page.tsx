@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { id: string }}) {
     return (
         <>
             < ProfileNavigation />
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center min-h-screen mt-16">
                 < ProfileCard id={id} />
                 < CommentSection id={id} />
             </div>

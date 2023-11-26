@@ -1,10 +1,12 @@
-import { fetchRatingById } from "@/lib/data"
+'use client';
+
 import clsx from "clsx"
 import Image from "next/image"
 import { black_poppins, nanum } from "@/lib/fonts"
+import { Rating } from "@/lib/definitions"
 
-export default async function CommentCard({ratingId}: {ratingId: string}) {
-    const { id, student_id, commenter_id, rating, noise, grade, classroom, attendance, likes, dislikes, comment, date } = await fetchRatingById(ratingId)
+export default function CommentCard({rat}: {rat: Rating}) {
+    const { id, student_id, commenter_id, rating, noise, grade, classroom, attendance, likes, dislikes, comment, date } = rat
     return (
         <div className="relative flex sm:flex-row max-sm:flex-col bg-zinc-100 p-10 gap-10"> 
                 <div className="flex sm:flex-col max-sm:flex-row max-sm:mt-5 gap-6">

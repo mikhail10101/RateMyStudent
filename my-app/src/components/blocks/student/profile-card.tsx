@@ -23,7 +23,7 @@ export default async function ProfileCard ({id}: {id: string}) {
                 </div>
 
                 <div>
-                    <p className={`${black_poppins.className} text-5xl`}>{firstname} {lastname}</p>
+                    <p className={`${black_poppins.className} text-5xl mb-1`}>{firstname} {lastname}</p>
                     <p className="text-sm">Student in the <b><u>{major}</u></b> department</p>
                     <p className="text-sm">at the <b><u>{school}</u></b></p>
                     <br/>

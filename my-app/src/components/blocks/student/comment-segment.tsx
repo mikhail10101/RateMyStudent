@@ -1,19 +1,49 @@
-import { fetchRatingIdsById } from "@/lib/data"
-import CommentCard from "./comment-card"
+'use client';
 
-export default async function CommentSegment({id, page_offset}: {id: string, page_offset: number}) {
-    const ratingIds = await fetchRatingIdsById(id, page_offset)
+import CommentCard from "./comment-card"
+import { Rating } from "@/lib/definitions"
+import { Button } from "@/components/ui/button"
+import clsx from "clsx";
+
+import { useState } from "react";
+
+export default function CommentSegment({ ratings }: { ratings: Rating[] }) {
+    const [displayed, setDisplayed] = useState(2)
+    if (ratings.length < displayed) {
+        setDisplayed(ratings.length)
+    }
+    const add = 1
+
+    const arr = []
+    for (let i = 0; i < displayed; i++) {
+        arr.push(i)
+    }
+
+    const handleClick = () => {
+        if (displayed+add > ratings.length) {
+            setDisplayed(ratings.length)
+        } else {
+            setDisplayed(displayed+add)
+        }
+    }
+
     return (
-        <div>
+        <div className="flex flex-col gap-12">
             {
-                ratingIds.map((ratingId) => {
+                arr.map((n) => {
                     return (
-                        <div key={ratingId.id}>
-                            <CommentCard ratingId={ratingId.id}/>
+                        <div key={n}>
+                            < CommentCard rat={ratings[n]} />
                         </div>
                     )
                 })
             }
+            <div className="flex flex-col items-center">
+                <Button onClick={handleClick}
+                    className={clsx({"hidden": displayed == ratings.length},
+                    {"w-[14rem] h-[3rem] rounded-3xl text-base font-semibold mt-10": true})}
+                >Load more ratings</Button>
+            </div>
         </div>
     )
 }

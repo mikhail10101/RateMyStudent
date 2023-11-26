@@ -93,7 +93,7 @@ export async function fetchStudentById(id: string) {
 }
 
 const ITEMS_PER_FETCH = 1
-export async function fetchRatingIdsById(id: string, fetches: number) {
+export async function fetchRatingIdsById(id: string) {
   noStore()
   try {
     const data = await sql`
@@ -101,7 +101,6 @@ export async function fetchRatingIdsById(id: string, fetches: number) {
       FROM ratings
       WHERE ratings.student_id = ${id}
       ORDER BY date desc
-      LIMIT ${ITEMS_PER_FETCH} OFFSET ${fetches*ITEMS_PER_FETCH};
     `
     return data.rows
   } catch (error) {
