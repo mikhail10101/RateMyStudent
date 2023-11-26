@@ -22,5 +22,6 @@ export type Rating = {
     attendance: number,
     likes: string,
     dislikes: string,
-    comment: string
+    comment: string,
+    date: Date
 }

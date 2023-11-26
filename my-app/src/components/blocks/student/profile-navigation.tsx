@@ -5,10 +5,8 @@ import { buttonVariants } from "@/components/ui/button"
 
 export default function ProfileNavigation() {
     return (
-
-        
         <>
-            <div className="bg-black fixed w-full flex flex-row items-center h-16">
+            <div className="z-10 bg-black fixed w-full flex flex-row items-center h-16">
                 <Image
                     src="/logo_shortened.png"
                     width={100}

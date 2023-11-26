@@ -111,7 +111,8 @@ async function seedRatings(client) {
         attendance INT,
         likes INT NOT NULL,
         dislikes INT NOT NULL,
-        comment VARCHAR(1023)
+        comment VARCHAR(1023),
+        date DATE NOT NULL
       );
     `
       
@@ -121,8 +122,8 @@ async function seedRatings(client) {
     const insertedRatings = await Promise.all(
       ratings.map(async (rating) => {
         return client.sql`
-        INSERT INTO ratings (id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment)
-        VALUES (${rating.id}, ${rating.student_id}, ${rating.commenter_id}, ${rating.rating}, ${rating.noise}, ${rating.classroom}, ${rating.grade}, ${rating.attendance}, ${rating.likes}, ${rating.dislikes}, ${rating.comment})
+        INSERT INTO ratings (id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date)
+        VALUES (${rating.id}, ${rating.student_id}, ${rating.commenter_id}, ${rating.rating}, ${rating.noise}, ${rating.classroom}, ${rating.grade}, ${rating.attendance}, ${rating.likes}, ${rating.dislikes}, ${rating.comment}, ${rating.date})
         `
       })
     )

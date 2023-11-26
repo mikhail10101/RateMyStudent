@@ -1,9 +1,4 @@
-function Bar({color}: {color: string}) {
-    return (
-        <div className={`h-2 w-10 ${color}`}>
-        </div>
-    )
-}
+import Bar from "./bar"
 
 export default function SoundBar({noise}: {noise: number}) {
     switch(noise) {

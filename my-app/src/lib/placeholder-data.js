@@ -234,7 +234,8 @@ const ratings = [
         attendance: 80,
         likes: 0,
         dislikes: 0,
-        comment: "Lorem ipsum dolor sit amet. Rem dolores sint qui accusantium consequuntur ut dolores dolores qui fugiat odio est nulla voluptas id molestias consequatur."
+        comment: "Lorem ipsum dolor sit amet. Rem dolores sint qui accusantium consequuntur ut dolores dolores qui fugiat odio est nulla voluptas id molestias consequatur.",
+        date: "2023-11-25"
     },
     {
         id: '541874a9-6b9c-4dbb-81c0-19bddc4b63ca',
@@ -247,7 +248,8 @@ const ratings = [
         attendance: 34,
         likes: 0,
         dislikes: 0,
-        comment: "Et dolores quasi ea veritatis voluptates qui nesciunt quaerat ea nesciunt ipsa et placeat perspiciatis et ullam enim non molestiae perferendis. Ad iure debitis sit sunt voluptatibus aut dolor voluptatum vel molestiae dignissimos quo iure maiores cum dignissimos velit. Et magni laborum sed possimus magnam aut atque consequuntur a necessitatibus alias."
+        comment: "Et dolores quasi ea veritatis voluptates qui nesciunt quaerat ea nesciunt ipsa et placeat perspiciatis et ullam enim non molestiae perferendis. Ad iure debitis sit sunt voluptatibus aut dolor voluptatum vel molestiae dignissimos quo iure maiores cum dignissimos velit. Et magni laborum sed possimus magnam aut atque consequuntur a necessitatibus alias.",
+        date: "2010-08-09"
     },
     {
         id: '4e49c972-09eb-4e10-b979-2c062e033605',
@@ -260,7 +262,8 @@ const ratings = [
         attendance: 78,
         likes: 0,
         dislikes: 0,
-        comment: "Eum earum voluptatem et minus quas et eius asperiores ut vitae odio et modi totam. Rem quas dolor At velit eligendi aut omnis minus qui nemo repudiandae. Sit deleniti odio et impedit eveniet vel molestias repellendus sed autem ullam ea placeat impedit qui molestiae iure?"
+        comment: "Eum earum voluptatem et minus quas et eius asperiores ut vitae odio et modi totam. Rem quas dolor At velit eligendi aut omnis minus qui nemo repudiandae. Sit deleniti odio et impedit eveniet vel molestias repellendus sed autem ullam ea placeat impedit qui molestiae iure?",
+        date: "2014-04-24"
     },
 ]
 

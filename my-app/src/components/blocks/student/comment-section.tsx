@@ -1,15 +1,14 @@
-import { fetchRatingIdsById } from "@/lib/data"
-import CommentCard from "./comment-card"
+import CommentSegment from "./comment-segment"
 
-export default async function CommentSection({id}: {id: string}) {
-    const ratingIds = await fetchRatingIdsById(id)
+export default function CommentSection({id}:{id: string}) {
+    const arr = [{n: 0},{n: 1},{n: 2}]
     return (
-        <div className="flex flex-col gap-10 max-w-[80%] w-[60rem]">
+        <div className="flex flex-col max-w-[80%] w-[60rem] gap-8">
             {
-                ratingIds.map((ratingId) => {
+                arr.map((element) => {
                     return (
-                        <div key={ratingId.id}>
-                            <CommentCard ratingId={ratingId.id}/>
+                        <div key={element.n}>
+                            < CommentSegment id={id} page_offset={element.n} />
                         </div>
                     )
                 })

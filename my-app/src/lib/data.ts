@@ -88,16 +88,20 @@ export async function fetchStudentById(id: string) {
     return data.rows[0]
   } catch(error) {
     console.log('Database Error: ', error)
+    throw new Error('Failed to fetch Student')
   }
 }
 
-export async function fetchRatingIdsById(id: string) {
+const ITEMS_PER_FETCH = 1
+export async function fetchRatingIdsById(id: string, fetches: number) {
   noStore()
   try {
     const data = await sql`
       SELECT id
       FROM ratings
-      WHERE ratings.student_id = ${id};
+      WHERE ratings.student_id = ${id}
+      ORDER BY date desc
+      LIMIT ${ITEMS_PER_FETCH} OFFSET ${fetches*ITEMS_PER_FETCH};
     `
     return data.rows
   } catch (error) {
