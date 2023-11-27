@@ -3,11 +3,13 @@ import { black_poppins, nanum } from "@/lib/fonts"
 import Image from "next/image"
 import SoundBar from "@/components/blocks/search/soundbar"
 
+import Link from "next/link"
+
 export default async function ProfileCard ({id}: {id: string}) {
     const student = await fetchStudentById(id)
     const { firstname, lastname, birthday, email, school, major, rating, amount, noise} = student
     return (
-        <div className="my-20 space-y-5 flex flex-col max-w-[80%] w-[60rem]">
+        <div className="mt-20 space-y-5 flex flex-col max-w-[80%] w-[60rem]">
                 <div>
                     <div className="flex flex-row space-x-6 h-[3.75rem]">
                         <SoundBar noise={noise}/>
