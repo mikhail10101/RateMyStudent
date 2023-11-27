@@ -88,7 +88,7 @@ export async function fetchStudentById(id: string) {
     return data.rows[0]
   } catch(error) {
     console.log('Database Error: ', error)
-    throw new Error('Failed to fetch Student')
+    throw new Error(`Failed to fetch Student ${id}`)
   }
 }
 

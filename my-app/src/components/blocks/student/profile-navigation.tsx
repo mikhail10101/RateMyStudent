@@ -7,13 +7,15 @@ export default function ProfileNavigation() {
     return (
         <>
             <div className="z-10 bg-black fixed w-full flex flex-row items-center h-16">
-                <Image
-                    src="/logo_shortened.png"
-                    width={100}
-                    height={40}
-                    alt="logo"
-                    className="ml-3"
-                />
+                <Link href="/">
+                    <Image
+                        src="/logo_shortened.png"
+                        width={100}
+                        height={40}
+                        alt="logo"
+                        className="ml-3"
+                    />
+                </Link> 
                 <div className="flex flex-row items-center space-x-2 mr-auto">
                     <div className="flex flex-row items-center">
                         <Image

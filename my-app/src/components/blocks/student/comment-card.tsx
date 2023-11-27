@@ -49,7 +49,7 @@ export default function CommentCard({rat}: {rat: Rating}) {
                         <p>Grade: {grade}</p>
                     </div>
                 </div>
-                <p className="font-medium text-sm">{comment}</p>
+                <p className="font-medium text-sm min-h-[4rem]">{comment}</p>
                 <div className="flex flex-row gap-5">
                     <div className="flex flex-row items-center gap-1">
                         <Image

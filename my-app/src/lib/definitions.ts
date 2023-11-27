@@ -20,8 +20,8 @@ export type Rating = {
     classroom: string,
     grade: string,
     attendance: number,
-    likes: string,
-    dislikes: string,
+    likes: number,
+    dislikes: number,
     comment: string,
     date: Date
 }
