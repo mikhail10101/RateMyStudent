@@ -1,6 +1,6 @@
 'use server';
 
-import { Rating } from './definitions';
+import { Student, Rating } from './definitions';
 import { randomUUID } from 'crypto';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
@@ -19,4 +19,18 @@ export async function CreateRating(val: Rating) {
 
     revalidatePath(`/student/${student_id}`)
     redirect(`/student/${student_id}`)
+}
+
+export async function CreateStudent(val: Student) {
+    val.id = randomUUID()
+    
+    const { id, firstname, lastname, birthday, email, school, major, rating, amount, noise } = val
+
+    await sql`
+    INSERT INTO students (id, firstname, lastname, birthday, email, school, major, rating, amount, noise)
+    VALUES (${id}, ${firstname}, ${lastname}, ${birthday.toDateString()}, ${email}, ${school}, ${major}, ${rating}, ${amount}, ${noise})
+    `;
+
+    revalidatePath(`/student/${id}`)
+    redirect(`/student/${id}`)
 }
