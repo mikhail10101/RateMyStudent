@@ -25,3 +25,10 @@ export type Rating = {
     comment: string,
     date: Date
 }
+
+export type User = {
+    id: string,
+    username: string,
+    email: string,
+    password: string
+}

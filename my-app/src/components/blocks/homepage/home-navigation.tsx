@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
+import { signOut } from '../../../../auth'
+import { Button } from '@/components/ui/button'
 
 export default function HomeNav() {
     return (
@@ -33,10 +35,19 @@ export default function HomeNav() {
                         alt="twitter"
                     />
                 </a>
+                <form
+                    className='mr-4'
+                    action={async () => {
+                        'use server';
+                        await signOut();
+                    }}
+                >
+                    <Button>Sign out</Button>
+                </form>
                 <Link href="/login" className="mr-4">Log In</Link>
                 <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign Up</Link>
             </div>
         </>
-        
+
     )
 }
