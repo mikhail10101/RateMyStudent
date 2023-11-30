@@ -2,8 +2,12 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { black_poppins } from '@/lib/fonts'
 import { buttonVariants } from '../../ui/button'
+import clsx from 'clsx';
+import { auth } from '../../../../auth';
 
-export default function HomeInfo() {
+export default async function HomeInfo() {
+    const session = await auth()
+
     return (
         <div className={"mt-[20rem] flex flex-col items-center"}>
 
@@ -41,7 +45,12 @@ export default function HomeInfo() {
                 </div>
             </div>
 
-            <Link href="/login" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white rounded-3xl my-12 mx-10 w-48 font-bold`}>Sign up now!</Link>
+            <div className={clsx({"hidden": session})}>
+                <Link href="/login" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white rounded-xl my-12 mx-10 w-48 font-bold`}>Sign up now!</Link>
+            </div>
+            <div className={clsx({"my-12": session},{"hidden":!session})}>
+
+            </div>
         </div>
     )
 }

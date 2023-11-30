@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
 
 import { auth } from '../../../../auth'
-import getServerSession from 'next-auth/next'
 
 export default async function HomeNav() {
     const session = await auth()

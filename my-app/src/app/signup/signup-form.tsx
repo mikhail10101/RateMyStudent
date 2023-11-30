@@ -21,6 +21,10 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from "@/components/ui/input"
 
+import { User } from '@/lib/definitions';
+
+import { CreateUser } from '@/lib/actions';
+
 export default function SignupForm() {
     const formSchema = z.object({
         email: z.
@@ -64,6 +68,15 @@ export default function SignupForm() {
     
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
+
+        const pass: User = {
+            id: "",
+            username: values.username,
+            password: values.password,
+            email: values.email
+        }
+
+        CreateUser(pass)
     }
 
     return (
