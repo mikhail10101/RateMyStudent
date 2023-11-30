@@ -10,7 +10,7 @@ import { AuthError } from 'next-auth';
 
 export async function CreateRating(val: Rating) {
     val.id = randomUUID()
-    
+
     const { id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date } = val
 
     await sql`
@@ -24,7 +24,7 @@ export async function CreateRating(val: Rating) {
 
 export async function CreateStudent(val: Student) {
     val.id = randomUUID()
-    
+
     const { id, firstname, lastname, birthday, email, school, major, rating, amount, noise } = val
 
     await sql`
@@ -39,19 +39,22 @@ export async function CreateStudent(val: Student) {
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
-  ) {
+) {
     try {
         await signIn('credentials', formData);
-        
+
     } catch (error) {
-      if (error instanceof AuthError) {
-        switch (error.type) {
-          case 'CredentialsSignin':
-            return 'Invalid credentials.';
-          default:
-            return 'Something went wrong.';
+        if (error instanceof AuthError) {
+            console.log("rawr")
+            switch (error.type) {
+                case 'CredentialsSignin':
+                    return 'Invalid credentials.';
+                default:
+                    return 'Something went wrong.';
+            }
+        } else {
+            revalidatePath(`/`)
+            redirect(`/`)
         }
-      }
-      throw error;
     }
-  }
+}

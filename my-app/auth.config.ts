@@ -7,7 +7,7 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user
-            const IsOnCreate = nextUrl.pathname.startsWith('/create/profile')
+            const IsOnCreate = nextUrl.pathname.startsWith('/create')
             if (IsOnCreate) {
                 if (isLoggedIn) return true
                 return false
