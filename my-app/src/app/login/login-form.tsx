@@ -25,7 +25,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { authenticate } from '@/lib/actions';
 
 export default function LoginForm() {
-    const [state, dispatch] = useFormState(authenticate, undefined)
+    const [errorMessage, dispatch] = useFormState(authenticate, undefined)
 
     const formSchema = z.object({
         username: z.
@@ -88,11 +88,11 @@ export default function LoginForm() {
                     <LoginButton />
                 </form>
                 <div
-                    className={clsx({"flex h-8 items-end space-x-1": true},{"hidden": !(state === 'CredentialsSignin')})}
+                    className={clsx({"flex h-8 items-end space-x-1": true},{"hidden": !(errorMessage)})}
                     aria-live="polite"
                     aria-atomic="true"
                 >
-                    {state === 'CredentialsSignin' && (
+                    {errorMessage && (
                         <>
                             <p className="text-sm text-red-500">Invalid credentials</p>
                         </>
@@ -112,6 +112,8 @@ function LoginButton() {
     const { pending } = useFormStatus()
 
     return (
-        <Button type="submit" className="w-full rounded-3xl" aria-disabled={pending}>Continue</Button>
+        <Button type="submit" className="w-full rounded-3xl" aria-disabled={pending}>
+            Continue
+        </Button>
     )
 }

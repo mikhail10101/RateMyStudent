@@ -3,8 +3,14 @@ import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import { signOut } from '../../../../auth'
 import { Button } from '@/components/ui/button'
+import clsx from 'clsx'
 
-export default function HomeNav() {
+import { auth } from '../../../../auth'
+import getServerSession from 'next-auth/next'
+
+export default async function HomeNav() {
+    const session = await auth()
+
     return (
         <>
             <div className="h-24 flex flex-row flex-nowrap justify-evenly items-center">
@@ -36,16 +42,18 @@ export default function HomeNav() {
                     />
                 </a>
                 <form
-                    className='mr-4'
+                    className={clsx({"hidden": !session})}
                     action={async () => {
                         'use server';
                         await signOut();
                     }}
                 >
-                    <Button>Sign out</Button>
+                    <Button className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign out</Button>
                 </form>
-                <Link href="/login" className="mr-4">Log In</Link>
-                <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign Up</Link>
+                <div className={clsx({"hidden": session})}>
+                    <Link href="/login" className="mr-4">Log In</Link>
+                    <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign Up</Link>
+                </div>
             </div>
         </>
 

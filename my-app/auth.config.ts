@@ -15,7 +15,10 @@ export const authConfig = {
                 return Response.redirect(new URL('/', nextUrl))
             }
             return true
+        },
+        session({ session, token, user }) {
+            return session
         }
     },
-    providers: []
+    providers: [],
 } satisfies NextAuthConfig
