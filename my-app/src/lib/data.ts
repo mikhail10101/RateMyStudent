@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres'
 import { unstable_noStore as noStore } from 'next/cache'
-import { Student, Rating } from './definitions'
+import { User, Student, Rating } from './definitions'
 
 export async function fetchStudents() {
     noStore()
@@ -31,7 +31,16 @@ export async function fetchFilteredStudents(
         students.email::text ILIKE ${`%${query}%`}
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
-
+    students.rows.map((row) => {
+      if (row.amount == 0) {
+        row.rating = 0
+        row.noise = 0
+      } else {
+        row.rating = Math.round(row.rating / row.amount)
+        row.noise = Math.round(row.noise / row.amount)
+      }
+      
+    })
     return students.rows;
   } catch (error) {
     console.error('Database Error:', error);
@@ -85,6 +94,9 @@ export async function fetchStudentById(id: string) {
       FROM students
       WHERE students.id = ${id};
     `
+    
+    data.rows[0].rating = Math.round(data.rows[0].rating / data.rows[0].amount)
+    data.rows[0].noise = Math.round(data.rows[0].noise / data.rows[0].amount)
     return data.rows[0]
   } catch(error) {
     console.log('Database Error: ', error)
@@ -121,5 +133,35 @@ export async function fetchRatingById(id: string) {
   } catch (error) {
     console.log('Database error', error)
     throw new Error('Failed to fetch Ratings')
+  }
+}
+
+export async function fetchUserById(id: string) {
+  noStore()
+  try {
+    const data = await sql<User>`
+      SELECT *
+      FROM users
+      WHERE users.id = ${id}
+    `
+    return data.rows[0]
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch User')
+  }
+}
+
+export async function fetchUserByEmail(email: string) {
+  noStore()
+  try {
+    const data = await sql<User>`
+      SELECT *
+      FROM users
+      WHERE users.email = ${email}
+    `
+    return data.rows[0]
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch User')
   }
 }

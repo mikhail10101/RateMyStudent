@@ -16,13 +16,26 @@ export async function CreateRating(val: Rating) {
     const session = await auth()
 
     //user2
-    val.commenter_id = session?.user?.id || "410544b2-4002-4271-9855-fec4b6a6442a"
+    const email = session?.user?.email || ""
+
+    const data = await sql`
+    SELECT id
+    FROM users
+    WHERE email = ${email}
+    `
+    val.student_id = data.rows[0].id
 
     const { id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date } = val
 
     await sql`
     INSERT INTO ratings (id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date)
     VALUES (${id}, ${student_id}, ${commenter_id}, ${rating}, ${noise}, ${classroom}, ${grade}, ${attendance}, ${likes}, ${dislikes}, ${comment}, ${date.toDateString()})
+    `;
+
+    await sql`
+    UPDATE students
+    SET amount = amount+1, rating = rating+${rating}, noise = noise+${noise}
+    WHERE id = ${student_id}
     `;
 
     revalidatePath(`/student/${student_id}`)
@@ -79,4 +92,35 @@ export async function authenticate(
             redirect(`/`)
         }
     }
+}
+
+export async function ChangePassword(curr: string, password: string) {
+    const hashed = await bcrypt.hash(curr, 10)
+    const session = await auth()
+
+    const data = await sql`
+    SELECT password
+    FROM users
+    WHERE email = ${session?.user?.email}
+    `
+
+    const current = data.rows[0].password
+
+    console.log(hashed)
+    console.log(current)
+
+
+    if (current === hashed) {
+        const hashed_new = await bcrypt.hash(password,10)
+        await sql`
+        UPDATE users
+        SET password = ${hashed_new}
+        WHERE email = ${session?.user?.email}
+        `
+
+        return true
+    } else {
+        return false
+    }
+
 }

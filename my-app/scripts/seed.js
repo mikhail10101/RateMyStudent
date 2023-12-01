@@ -1,8 +1,6 @@
-/*
 const { db } = require('@vercel/postgres')
 const bcrypt = require('bcrypt')
 const { users, students, ratings } = require('../src/lib/placeholder-data.js')
-*/
 
 async function seedUsers(client) {
     try {
@@ -47,7 +45,7 @@ async function seedUsers(client) {
 async function main() {
     const client = await db.connect();
 
-    await seedRatings(client);
+    await seedStudents(client);
 
     await client.end();
 }

@@ -3,12 +3,16 @@ import { black_poppins } from "@/lib/fonts"
 
 import { headers } from 'next/headers'
 
+import { auth } from "../../../../../auth";
+
 export default async function UnderNav() {
     const headersList = headers();
     const domain = headersList.get('host') || "";
     const fullUrl = headersList.get('referer') || "";
 
     const student_id = fullUrl.split("/")[4]
+
+    const session = auth()
 
     const { firstname, lastname, major, school } = await fetchStudentById(student_id)
     return (

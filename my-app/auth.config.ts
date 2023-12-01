@@ -20,7 +20,7 @@ export const authConfig = {
             } 
             return true
         },
-        session({ session, token, user }) {
+        session({ session, user }) {
             return session
         }
     },

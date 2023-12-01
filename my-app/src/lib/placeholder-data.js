@@ -35,9 +35,9 @@ const students = [
         email: 'winter@gmail.com',
         school: "University of Boston" ,
         major: 'Archeology',
-        rating: 9.7,
+        rating: 1000,
         amount: 109,
-        noise: 2
+        noise: 200
     },
     {
         id: '6f9ea878-51a8-4c50-bb67-2264d50ef517',
@@ -47,9 +47,9 @@ const students = [
         email: 'niveah@gmail.com',
         school: 'Dropped Out',
         major: 'Not Specified',
-        rating: 5,
+        rating: 30,
         amount: 5,
-        noise: 1
+        noise: 20
     },
     {
         id: 'ed0b6c7b-5ef3-4b04-8874-8a1554b6b97e',
@@ -59,9 +59,9 @@ const students = [
         email: 'john.doe@gmail.com',
         school: 'Northeastern University',
         major: 'Computer Science',
-        rating: 8.5,
+        rating: 24,
         amount: 3,
-        noise: 3
+        noise: 9
     },
     {
         id: 'f80b7a02-8e0e-4a87-8d09-9a2a6cc9d59c',
@@ -71,9 +71,9 @@ const students = [
         email: 'alice.johnson@yahoo.com',
         school: 'Northwestern University',
         major: 'Fine Arts',
-        rating: 7.2,
+        rating: 30,
         amount: 4,
-        noise: 2
+        noise: 10
     },
     {
         id: '2e10dd41-7b54-4f48-9600-737362773aab',
@@ -83,9 +83,9 @@ const students = [
         email: 'iLoveABGS@gmail.com',
         school: "Rizz University" ,
         major: 'Rizzology',
-        rating: 9.5,
+        rating: 3000,
         amount: 420,
-        noise: 5
+        noise: 1400
     },
     {
         id: '24713490-3c77-4abd-8d58-8eec1eb6be1d',
@@ -95,9 +95,9 @@ const students = [
         email: 'harry.potter@gmail.com',
         school: 'Hogwarts School of Wizardry and Witchcraft',
         major: 'Archeology',
-        rating: 5.5,
+        rating: 140,
         amount: 67,
-        noise: 4
+        noise: 120
     },
     {
         id: '36b34781-717d-4b7d-9380-c54acebb0ac8',
@@ -107,9 +107,9 @@ const students = [
         email: 'percy.jackson@gmail.com',
         school: 'Camp Half-Blood',
         major: 'Management Engineering',
-        rating: 6.6,
+        rating: 360,
         amount: 40,
-        noise: 5
+        noise: 160
         
     },
     {
@@ -120,9 +120,9 @@ const students = [
         email: 'clary.fairchild@gmail.com',
         school: "Saint Francis Xavier School" ,
         major: 'Theology',
-        rating: 7.7,
+        rating: 100,
         amount: 14,
-        noise: 2
+        noise: 40
     },
     {
         id: '41d7f889-f446-49dc-9acd-7a0dcde92408',
@@ -132,9 +132,9 @@ const students = [
         email: 'kimminji@gmail.com',
         school: "Hanlim Performing Arts High School",
         major: 'Fine Arts',
-        rating: 10,
+        rating: 800,
         amount: 138,
-        noise: 3
+        noise: 300
     },
     {
         id: '91761326-d219-4fb7-9947-9f9e484f8d8c',
@@ -144,9 +144,9 @@ const students = [
         email: 'hannipham@gmail.com',
         school: "Our Lady of Mercy College" ,
         major: 'Fine Arts',
-        rating: 10,
+        rating: 1000,
         amount: 138,
-        noise: 5
+        noise: 400
     },
     {
         id: '4c9b2b42-9fc2-4f7c-aa47-8c898c8a50af',
@@ -156,9 +156,9 @@ const students = [
         email: 'elijah.smith@gmail.com',
         school: 'Ateneo de Manila University',
         major: 'Management Engineering',
-        rating: 6.8,
+        rating: 140,
         amount: 20,
-        noise: 4
+        noise: 80
     },
     {
         id: 'a4c2386a-3921-42b9-91dd-c7e5384b8a29',
@@ -170,7 +170,7 @@ const students = [
         major: 'Psychology',
         rating: 9.2,
         amount: 2,
-        noise: 1
+        noise: 4
     },
     {
         id: 'dbf5a48d-6899-42c3-a66a-82a20f0d4c8b',
@@ -180,9 +180,9 @@ const students = [
         email: 'daniel.lopez@gmail.com',
         school: 'Yale University',
         major: 'Computer Science',
-        rating: 7.5,
+        rating: 120,
         amount: 20,
-        noise: 3
+        noise: 25
     },
     {
         id: 'c64c688b-8bae-42b3-a26d-2c8b438a18db',
@@ -192,9 +192,9 @@ const students = [
         email: 'emma.davis@gmail.com',
         school: 'Ateneo de Manila University',
         major: 'Psychology',
-        rating: 9.9,
+        rating: 800,
         amount: 300,
-        noise: 2
+        noise: 300
     },
     {
         id: 'f9c5e1d2-2510-4d9d-b883-0c97b7fb558d',
@@ -204,7 +204,7 @@ const students = [
         email: 'mason.roberts@yahoo.com',
         school: 'University of Boston',
         major: 'Business Administration',
-        rating: 8.0,
+        rating: 29,
         amount: 90,
         noise: 4
     },
@@ -216,9 +216,9 @@ const students = [
         email: 'olivia.white@hotmail.com',
         school: 'University of Washington',
         major: 'Fine Arts',
-        rating: 7.9,
-        amount: 3,
-        noise: 1
+        rating: 100,
+        amount: 30,
+        noise: 40
     },
 ];
 
