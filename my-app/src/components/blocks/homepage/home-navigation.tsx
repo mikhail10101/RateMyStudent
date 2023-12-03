@@ -1,8 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
+import { signOut } from '../../../../auth'
+import { Button } from '@/components/ui/button'
+import clsx from 'clsx'
 
-export default function HomeNav() {
+import { auth } from '../../../../auth'
+import DropDown from '../account/drop-down'
+
+export default async function HomeNav() {
+    const session = await auth()
+
     return (
         <>
             <div className="h-24 flex flex-row flex-nowrap justify-evenly items-center">
@@ -33,10 +41,21 @@ export default function HomeNav() {
                         alt="twitter"
                     />
                 </a>
-                <Link href="/login" className="mr-4">Log In</Link>
-                <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign Up</Link>
+                <form
+                    className={clsx({"hidden": !session})}
+                    action={async () => {
+                        'use server';
+                        await signOut();
+                    }}
+                >
+                    <Button className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign out</Button>
+                </form>
+                <div className={clsx({"hidden": session})}>
+                    <Link href="/login" className="mr-4">Log In</Link>
+                    <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white`}>Sign Up</Link>
+                </div>
             </div>
         </>
-        
+
     )
 }
