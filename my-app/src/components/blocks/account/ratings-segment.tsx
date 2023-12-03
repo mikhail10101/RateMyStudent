@@ -1,15 +1,17 @@
 'use client';
 
-import CommentCard from "./comment-card"
+import Link from "next/link";
+
+import CommentCard from "../student/comment-card";
 import { Rating } from "@/lib/definitions"
 import { Button } from "@/components/ui/button"
 import clsx from "clsx";
 
 import { useState } from "react";
 
-export default function CommentSegment({ ratings }: { ratings: Rating[] }) {
-    const [displayed, setDisplayed] = useState(Math.min(2,ratings.length))
-    const add = 1
+export default function RatingSegment({ ratings }: { ratings: Rating[] }) {
+    const [displayed, setDisplayed] = useState(Math.min(4,ratings.length))
+    const add = 2
 
     const arr = []
     for (let i = 0; i < displayed; i++) {
@@ -28,10 +30,13 @@ export default function CommentSegment({ ratings }: { ratings: Rating[] }) {
         <div className="flex flex-col gap-12">
             {
                 arr.map((n) => {
+                    const rating = ratings[n]
+
+
                     return (
-                        <div key={n}>
+                        <Link href={`/edit/rating/${rating.id}`} key={n}>
                             < CommentCard rat={ratings[n]} />
-                        </div>
+                        </Link>
                     )
                 })
             }

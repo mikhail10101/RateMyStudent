@@ -18,11 +18,18 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+import { useState } from "react";
+import { useFormStatus } from 'react-dom'
+
+import clsx from "clsx";
+
 
 export default function SettingsTab() {
+    const [error, setError] = useState(false)
+
     const formSchema = z.object({
-        current: z.string().min(1, {message: "Cannot be empty"}),
-        new: z.string().min(1, {message: "Cannot be empty"})
+        current: z.string(),
+        new: z.string()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -33,8 +40,14 @@ export default function SettingsTab() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(ChangePassword(values.current,values.new))
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        if (!(await ChangePassword(values.current,values.new))) {
+            console.log("Error")
+            setError(true)
+        } else {
+            setError(false)
+            form.reset()
+        }
     }
 
     return (
@@ -66,8 +79,21 @@ export default function SettingsTab() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Submit</Button>
+                < LoginButton />
+                <div className={clsx({"text-sm text-red-500": true},{"hidden": !error})}>
+                    <p>Wrong password</p>
+                </div>
             </form>
         </Form>
+    )
+}
+
+function LoginButton() {
+    const { pending } = useFormStatus()
+
+    return (
+        <Button type="submit" className="w-full rounded-3xl" aria-disabled={pending}>
+            Submit
+        </Button>
     )
 }

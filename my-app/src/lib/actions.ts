@@ -15,7 +15,6 @@ export async function CreateRating(val: Rating) {
     val.id = randomUUID()
     const session = await auth()
 
-    //user2
     const email = session?.user?.email || ""
 
     const data = await sql`
@@ -23,7 +22,7 @@ export async function CreateRating(val: Rating) {
     FROM users
     WHERE email = ${email}
     `
-    val.student_id = data.rows[0].id
+    val.commenter_id = data.rows[0].id
 
     const { id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date } = val
 
@@ -40,6 +39,25 @@ export async function CreateRating(val: Rating) {
 
     revalidatePath(`/student/${student_id}`)
     redirect(`/student/${student_id}`)
+}
+
+export async function UpdateRating(val: Rating, prevRating: number, prevNoise: number) {
+    const { id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date } = val
+
+    await sql`
+    UPDATE ratings
+    SET rating = ${rating}, noise = ${noise}, classroom = ${classroom}, attendance = ${attendance}, grade = ${grade}, comment = ${comment}
+    WHERE id = ${id}
+    `
+
+    await sql`
+    UPDATE students
+    SET rating = rating-${rating}, noise = noise-${prevNoise}+${noise}
+    WHERE id = ${student_id}
+    `
+
+    revalidatePath(`/account`)
+    redirect(`/account`)
 }
 
 export async function CreateStudent(val: Student) {
@@ -95,7 +113,6 @@ export async function authenticate(
 }
 
 export async function ChangePassword(curr: string, password: string) {
-    const hashed = await bcrypt.hash(curr, 10)
     const session = await auth()
 
     const data = await sql`
@@ -104,13 +121,7 @@ export async function ChangePassword(curr: string, password: string) {
     WHERE email = ${session?.user?.email}
     `
 
-    const current = data.rows[0].password
-
-    console.log(hashed)
-    console.log(current)
-
-
-    if (current === hashed) {
+    if (await bcrypt.compare(curr, data.rows[0].password)) {
         const hashed_new = await bcrypt.hash(password,10)
         await sql`
         UPDATE users
@@ -122,5 +133,4 @@ export async function ChangePassword(curr: string, password: string) {
     } else {
         return false
     }
-
 }

@@ -46,6 +46,8 @@ async function main() {
     const client = await db.connect();
 
     await seedStudents(client);
+    await seedRatings(client);
+    await seedUsers(client);
 
     await client.end();
 }

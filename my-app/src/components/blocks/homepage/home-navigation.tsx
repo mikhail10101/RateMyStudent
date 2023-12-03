@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
 
 import { auth } from '../../../../auth'
+import DropDown from '../account/drop-down'
 
 export default async function HomeNav() {
     const session = await auth()

@@ -165,3 +165,60 @@ export async function fetchUserByEmail(email: string) {
     throw new Error('Failed to fetch User')
   }
 }
+
+export async function fetchRatingsByCommenterId(id: string) {
+  try {
+    const data = await sql<Rating>`
+      SELECT *
+      FROM ratings
+      WHERE ratings.commenter_id = ${id}
+      ORDER BY date desc
+    `
+    return data.rows
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch RatingIds')
+  }
+}
+
+export async function fetchStudentByRatingId(id: string) {
+  try {
+    const student_id = await sql`
+    SELECT student_id
+    FROM ratings
+    WHERE id = ${id}
+    `;
+
+    const data = await sql<Student>`
+    SELECT *
+    FROM students
+    WHERE id = ${student_id.rows[0].student_id}
+    `
+
+    return data.rows[0]
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch User')
+  }
+}
+
+export async function fetchUserByRatingId(id: string) {
+  try {
+    const commenter_id = await sql`
+    SELECT commenter_id
+    FROM ratings
+    WHERE id = ${id}
+    `;
+
+    const data = await sql<User>`
+    SELECT *
+    FROM users
+    WHERE id = ${commenter_id.rows[0].commenter_id}
+    `
+
+    return data.rows[0]
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch User')
+  }
+}

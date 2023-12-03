@@ -10,8 +10,10 @@ export const authConfig = {
             const isOnEntrance = nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/signup')
             const IsOnCreate = nextUrl.pathname.startsWith('/create')
             const IsOnRate = nextUrl.pathname.endsWith('rate') || nextUrl.pathname.endsWith('rate/')
+            const IsOnAccount = nextUrl.pathname.startsWith('/account')
+            const IsOnEditRating = nextUrl.pathname.startsWith('/edit/rating')
 
-            if (IsOnCreate || IsOnRate) {
+            if (IsOnCreate || IsOnRate || IsOnAccount || IsOnEditRating ) {
                 if (isLoggedIn) return true
                 return Response.redirect(new URL('/login', nextUrl))
             } else if (isOnEntrance) {
