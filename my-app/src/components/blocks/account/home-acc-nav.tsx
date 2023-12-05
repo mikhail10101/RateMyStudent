@@ -9,7 +9,7 @@ import { Settings } from 'lucide-react'
 
 import { auth } from '../../../../auth'
 
-export default async function HomeNav() {
+export default async function HomeAccNav() {
     const session = await auth()
 
     return (
@@ -44,9 +44,14 @@ export default async function HomeNav() {
                 </a>
                 <Link
                     className={clsx({"hidden": !session})}
-                    href="/account/profile"
+                    href="/"
                 >
-                    <Settings className="mr-12 h-7 w-7"></Settings>
+                    <Image className="mr-12"
+                        src="/house-solid.svg"
+                        width={23}
+                        height={23}
+                        alt="home"
+                         />
                 </Link>
                 <div className={clsx({"hidden": session})}>
                     <Link href="/login" className="mr-4">Log In</Link>

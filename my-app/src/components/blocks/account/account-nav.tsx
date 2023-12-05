@@ -1,11 +1,14 @@
 'use client';
 
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import clsx from "clsx";
+
+import { useRouter } from 'next/navigation'
 
 export default function AccountNav() {
     const pathname = usePathname()
+    const router = useRouter()
 
     const arr = [
         {small: "profile", caps: "Profile"},
@@ -18,16 +21,14 @@ export default function AccountNav() {
             {
                 arr.map((tab) => {
                     return (
-                        <Link href={`/account/${tab.small}`} key={tab.small} className={clsx(
-                            "flex h-[48px] items-center justify-center gap-2 bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3",
+                        <Button onClick={() => router.replace(`/account/${tab.small}`)} key={tab.small} className={clsx(
+                            "text-black flex h-[40px] items-center justify-center gap-2 bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3",
                             {
                               'bg-sky-100 text-blue-600': pathname.endsWith(tab.small),
                             }
                             )}>
-                            <div className="">
                                 {tab.caps}
-                            </div>
-                        </Link>
+                        </Button>
                     )
                 })
             }

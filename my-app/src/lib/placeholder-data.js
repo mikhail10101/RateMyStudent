@@ -267,8 +267,17 @@ const ratings = [
     },
 ]
 
+const votes = [
+    {
+        voter_id: '410544b2-4001-4271-9855-fec4b6a6442a',
+        rating_id: '7e6a2d43-53d6-4a6d-b592-eb5f095d5d9e',
+        val: 1
+    }
+]
+
 module.exports = {
     users,
     students,
-    ratings
+    ratings,
+    votes
 }

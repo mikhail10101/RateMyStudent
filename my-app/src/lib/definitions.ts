@@ -32,3 +32,9 @@ export type User = {
     email: string,
     password: string
 }
+
+export type Vote = {
+    voter_id: string,
+    rating_id: string,
+    val: number
+}

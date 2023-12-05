@@ -22,6 +22,7 @@ import { useState } from "react";
 import { useFormStatus } from 'react-dom'
 
 import clsx from "clsx";
+import { black_poppins } from "@/lib/fonts";
 
 
 export default function SettingsTab() {
@@ -51,6 +52,10 @@ export default function SettingsTab() {
     }
 
     return (
+        <>
+        <div className={`flex flex-col items-center text-3xl mb-10 ${black_poppins.className}`}>
+            Change Password
+        </div>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
@@ -85,6 +90,7 @@ export default function SettingsTab() {
                 </div>
             </form>
         </Form>
+        </>
     )
 }
 

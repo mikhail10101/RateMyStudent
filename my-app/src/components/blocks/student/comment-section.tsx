@@ -1,4 +1,4 @@
-import { fetchRatingIdsById, fetchRatingById } from "@/lib/data"
+import { fetchRatingIdsById, fetchRatingById, fetchVoteByRatingId } from "@/lib/data"
 import CommentSegment from "./comment-segment"
 import clsx from "clsx"
 

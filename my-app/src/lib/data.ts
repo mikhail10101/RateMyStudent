@@ -1,6 +1,7 @@
 import { sql } from '@vercel/postgres'
 import { unstable_noStore as noStore } from 'next/cache'
-import { User, Student, Rating } from './definitions'
+import { User, Student, Rating, Vote } from './definitions'
+import { auth } from '../../auth'
 
 export async function fetchStudents() {
     noStore()
@@ -220,5 +221,21 @@ export async function fetchUserByRatingId(id: string) {
   } catch (error) {
     console.log('Database error', error)
     throw new Error('Failed to fetch User')
+  }
+}
+
+export async function fetchVoteByRatingId(rating_id: string) {
+  noStore()
+  const session = await auth()
+  if (session) {
+      const user = await fetchUserByEmail(session?.user?.email || "")
+
+      const data = await sql<Vote>`
+      SELECT *
+      FROM votes
+      WHERE voter_id =${user.id} AND rating_id = ${rating_id}
+      `
+
+      return data.rows
   }
 }

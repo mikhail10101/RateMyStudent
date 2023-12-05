@@ -9,6 +9,8 @@ import { signIn } from '../../auth';
 import { AuthError } from 'next-auth';
 import bcrypt from 'bcrypt'
 
+import { fetchUserByEmail } from './data';
+
 import { auth } from '../../auth';
 
 export async function CreateRating(val: Rating) {
@@ -56,8 +58,8 @@ export async function UpdateRating(val: Rating, prevRating: number, prevNoise: n
     WHERE id = ${student_id}
     `
 
-    revalidatePath(`/account`)
-    redirect(`/account`)
+    revalidatePath(`/account/ratings`)
+    redirect(`/account/ratings`)
 }
 
 export async function CreateStudent(val: Student) {
@@ -132,5 +134,78 @@ export async function ChangePassword(curr: string, password: string) {
         return true
     } else {
         return false
+    }
+}
+
+export async function Vote(rating_id: string, up: number) {
+    const session = await auth()
+    if (session) {
+        const user = await fetchUserByEmail(session?.user?.email || "")
+        const data = await sql`
+            SELECT *
+            FROM votes
+            WHERE voter_id = ${user.id} AND rating_id = ${rating_id}
+        `
+        if (data.rows.length == 0) {
+            await sql`
+            INSERT INTO votes (voter_id, rating_id, val)
+            VALUES (${user.id},${rating_id},${up})
+            `
+
+            if (up == 1) {
+                await sql`
+                UPDATE ratings
+                SET likes = likes+1
+                WHERE id = ${rating_id}
+                `
+            } else {
+                await sql`
+                UPDATE ratings
+                SET dislikes = dislikes+1
+                WHERE id = ${rating_id}
+                `
+            }
+        } else {
+            const vote = data.rows[0]
+            if (vote.val == up) {
+                await sql`
+                DELETE FROM votes
+                WHERE voter_id = ${user.id} AND rating_id = ${rating_id}
+                `
+                if (up == 1) {
+                    await sql`
+                    UPDATE ratings
+                    SET likes = likes-1
+                    WHERE id = ${rating_id}
+                    `
+                } else {
+                    await sql`
+                    UPDATE ratings
+                    SET dislikes = dislikes-1
+                    WHERE id = ${rating_id}
+                    `
+                }
+            
+            } else {
+                await sql`
+                UPDATE votes
+                SET val = ${up}
+                WHERE voter_id = ${user.id} AND rating_id = ${rating_id}
+                `
+                if (up == 1) {
+                    await sql`
+                    UPDATE ratings
+                    SET likes = likes+1, dislikes = dislikes-1
+                    WHERE id = ${rating_id}
+                    `
+                } else {
+                    await sql`
+                    UPDATE ratings
+                    SET dislikes = dislikes+1, likes = likes-1
+                    WHERE id = ${rating_id}
+                    `
+                }
+            }
+        }
     }
 }

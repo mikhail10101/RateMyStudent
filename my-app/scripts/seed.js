@@ -1,6 +1,6 @@
 const { db } = require('@vercel/postgres')
 const bcrypt = require('bcrypt')
-const { users, students, ratings } = require('../src/lib/placeholder-data.js')
+const { users, students, ratings, votes } = require('../src/lib/placeholder-data.js')
 
 async function seedUsers(client) {
     try {
@@ -44,10 +44,12 @@ async function seedUsers(client) {
 
 async function main() {
     const client = await db.connect();
-
+/*
     await seedStudents(client);
     await seedRatings(client);
     await seedUsers(client);
+*/
+    await SeedVotes(client)
 
     await client.end();
 }
@@ -94,6 +96,41 @@ async function seedStudents(client) {
   } catch (error) {
     console.error('Error seeding students:', error);
     throw error;
+  }
+}
+
+async function SeedVotes(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+  
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS votes (
+        voter_id UUID DEFAULT uuid_generate_v4() NOT NULL,
+        rating_id UUID DEFAULT uuid_generate_v4() NOT NULL,
+        val INT
+      );
+    `
+
+    console.log('Created "votes" table')
+    console.log(votes)
+
+    const InsertedVotes = await Promise.all(
+      votes.map(async (vote) => {
+        return client.sql`
+        INSERT INTO votes (voter_id, rating_id, val)
+        VALUES (${vote.voter_id},${vote.rating_id},${vote.val})
+        `
+      })
+    )
+
+    console.log(`Seeded ${InsertedVotes.length} votes`)
+    return {
+      createTable,
+      votes: InsertedVotes
+    }
+  } catch (error) {
+    console.log("Error seeding votes", error)
+    throw error
   }
 }
 

@@ -4,6 +4,7 @@ import clsx from "clsx"
 import Image from "next/image"
 import { black_poppins, nanum } from "@/lib/fonts"
 import { Rating } from "@/lib/definitions"
+import LikePanel from "./like-panel";
 
 export default function CommentCard({rat}: {rat: Rating}) {
     const { id, student_id, commenter_id, rating, noise, grade, classroom, attendance, likes, dislikes, comment, date } = rat
@@ -50,26 +51,7 @@ export default function CommentCard({rat}: {rat: Rating}) {
                     </div>
                 </div>
                 <p className="font-medium text-sm min-h-[4rem]">{comment}</p>
-                <div className="flex flex-row gap-5">
-                    <div className="flex flex-row items-center gap-1">
-                        <Image
-                            src="/thumbs-up.svg"
-                            width={20}
-                            height={20}
-                            alt="thumbs up"
-                        />
-                        <p>{likes}</p>
-                    </div>
-                    <div className="flex flex-row items-center gap-1">
-                        <Image
-                            src="/thumbs-down.svg"
-                            width={20}
-                            height={20}
-                            alt="thumbs down"
-                        />
-                        <p>{dislikes}</p>
-                    </div>
-                </div>
+                <LikePanel likes={likes} dislikes={dislikes} liked={false} disliked={false} rating_id={id}/>
 
                 <div className="absolute top-4 right-8">
                     <p className="font-bold text-sm">{date.toDateString().substring(4)}</p>

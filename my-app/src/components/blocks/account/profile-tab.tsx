@@ -8,6 +8,10 @@ export default async function ProfileTab() {
     const { username, email } = await fetchUserByEmail(session?.user?.email || "")
     
     return (
+        <>
+        <div className={`flex flex-col items-center text-3xl mb-10 ${black_poppins.className}`}>
+            Details
+        </div>
         <div className="flex flex-col gap-8">
             <div className="flex flex-col">
                 <p className={`${black_poppins.className} text-xs`}>Username</p>
@@ -18,5 +22,6 @@ export default async function ProfileTab() {
                 <p>{email}</p>
             </div>
         </div>
+        </>
     )
 }
