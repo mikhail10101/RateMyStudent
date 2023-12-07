@@ -130,7 +130,25 @@ export async function fetchRatingById(id: string) {
       FROM ratings
       WHERE ratings.id = ${id}
     `
-    return data.rows[0]
+    var panel = 0
+
+    const session = await auth()
+    if (session) {
+      const user = await fetchUserByEmail(session?.user?.email || "")
+      const panelData = await sql`
+        SELECT *
+        FROM votes
+        WHERE votes.rating_id = ${id} AND votes.voter_id = ${user.id}
+      `
+      if (panelData.rows.length == 1) {
+        if (panelData.rows[0].val == 1) {
+          panel = 1
+        } else {
+          panel = -1
+        }
+      }
+    }
+    return {r: data.rows[0], p: panel}
   } catch (error) {
     console.log('Database error', error)
     throw new Error('Failed to fetch Ratings')
@@ -236,6 +254,9 @@ export async function fetchVoteByRatingId(rating_id: string) {
       WHERE voter_id =${user.id} AND rating_id = ${rating_id}
       `
 
-      return data.rows
+      if (data.rows.length == 1) {
+        return data.rows[0].val
+      }
   }
+  return -1
 }

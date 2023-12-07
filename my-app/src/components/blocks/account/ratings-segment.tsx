@@ -9,7 +9,10 @@ import clsx from "clsx";
 
 import { useState } from "react";
 
-export default function RatingSegment({ ratings }: { ratings: Rating[] }) {
+export default function RatingSegment({ ratings }: { ratings: {
+    r: Rating;
+    p: number;
+}[]}) {
     const [displayed, setDisplayed] = useState(Math.min(4,ratings.length))
     const add = 2
 
@@ -34,8 +37,8 @@ export default function RatingSegment({ ratings }: { ratings: Rating[] }) {
 
 
                     return (
-                        <Link href={`/edit/rating/${rating.id}`} key={n}>
-                            < CommentCard rat={ratings[n]} />
+                        <Link href={`/edit/rating/${rating.r.id}`} key={n}>
+                            < CommentCard rat={rating.r} p={rating.p}  />
                         </Link>
                     )
                 })

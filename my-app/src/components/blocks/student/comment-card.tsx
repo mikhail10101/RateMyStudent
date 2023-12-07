@@ -6,7 +6,7 @@ import { black_poppins, nanum } from "@/lib/fonts"
 import { Rating } from "@/lib/definitions"
 import LikePanel from "./like-panel";
 
-export default function CommentCard({rat}: {rat: Rating}) {
+export default function CommentCard({rat, p}: {rat: Rating, p: number}) {
     const { id, student_id, commenter_id, rating, noise, grade, classroom, attendance, likes, dislikes, comment, date } = rat
     return (
         <div className="relative flex sm:flex-row max-sm:flex-col bg-zinc-100 p-10 gap-10"> 
@@ -51,7 +51,7 @@ export default function CommentCard({rat}: {rat: Rating}) {
                     </div>
                 </div>
                 <p className="font-medium text-sm min-h-[4rem]">{comment}</p>
-                <LikePanel likes={likes} dislikes={dislikes} liked={false} disliked={false} rating_id={id}/>
+                <LikePanel likes={likes} dislikes={dislikes} likeValue={p} rating_id={id}/>
 
                 <div className="absolute top-4 right-8">
                     <p className="font-bold text-sm">{date.toDateString().substring(4)}</p>

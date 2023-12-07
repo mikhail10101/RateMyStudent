@@ -7,7 +7,10 @@ import clsx from "clsx";
 
 import { useState } from "react";
 
-export default function CommentSegment({ ratings }: { ratings: Rating[] }) {
+export default function CommentSegment({ ratings }: { ratings: {
+    r: Rating;
+    p: number;
+}[]}) {
     const [displayed, setDisplayed] = useState(Math.min(2,ratings.length))
     const add = 1
 
@@ -30,7 +33,7 @@ export default function CommentSegment({ ratings }: { ratings: Rating[] }) {
                 arr.map((n) => {
                     return (
                         <div key={n}>
-                            < CommentCard rat={ratings[n]} />
+                            < CommentCard rat={ratings[n].r} p={ratings[n].p} />
                         </div>
                     )
                 })
