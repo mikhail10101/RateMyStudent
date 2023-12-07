@@ -185,10 +185,10 @@ export async function fetchUserByEmail(email: string) {
   }
 }
 
-export async function fetchRatingsByCommenterId(id: string) {
+export async function fetchRatingIdsByCommenterId(id: string) {
   try {
     const data = await sql<Rating>`
-      SELECT *
+      SELECT id
       FROM ratings
       WHERE ratings.commenter_id = ${id}
       ORDER BY date desc
@@ -244,19 +244,24 @@ export async function fetchUserByRatingId(id: string) {
 
 export async function fetchVoteByRatingId(rating_id: string) {
   noStore()
-  const session = await auth()
-  if (session) {
-      const user = await fetchUserByEmail(session?.user?.email || "")
+  try {
+    const session = await auth()
+    if (session) {
+        const user = await fetchUserByEmail(session?.user?.email || "")
 
-      const data = await sql<Vote>`
-      SELECT *
-      FROM votes
-      WHERE voter_id =${user.id} AND rating_id = ${rating_id}
-      `
+        const data = await sql<Vote>`
+        SELECT *
+        FROM votes
+        WHERE voter_id =${user.id} AND rating_id = ${rating_id}
+        `
 
-      if (data.rows.length == 1) {
-        return data.rows[0].val
-      }
+        if (data.rows.length == 1) {
+          return data.rows[0].val
+        }
+    }
+    return -1
+  } catch (error) {
+    console.log('Database error', error)
+    throw new Error('Failed to fetch votes')
   }
-  return -1
 }

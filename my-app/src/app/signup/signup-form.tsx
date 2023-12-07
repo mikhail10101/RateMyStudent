@@ -42,9 +42,6 @@ export default function SignupForm() {
             max(20, {message: "Password is too long"}),
         password2: z.
             string(),
-        remember: z.
-            boolean().
-            optional(),
         policy:
             z.coerce.
             boolean().
@@ -61,7 +58,6 @@ export default function SignupForm() {
             username: "",
             password: "",
             password2: "",
-            remember: false,
             policy: false
         }
     })
@@ -96,7 +92,7 @@ export default function SignupForm() {
                         <FormControl>
                             <Input placeholder="Username" {...field} />
                         </FormControl>
-                        <FormMessage className="text-sm"/>
+                        <FormMessage className="text-xs"/>
                     </FormItem>
                 )}
             />
@@ -110,7 +106,7 @@ export default function SignupForm() {
                         <FormControl>
                             <Input placeholder="Email" {...field} />
                         </FormControl>
-                        <FormMessage className="text-sm"/>
+                        <FormMessage className="text-xs"/>
                     </FormItem>
                 )}
             />
@@ -145,24 +141,6 @@ export default function SignupForm() {
             </div>
             
             <div className="py-3">
-            <FormField
-                control={form.control}
-                name="remember"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormControl>
-                            <Checkbox
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                            />
-                        </FormControl>
-                        <FormLabel>
-                            {" "}Remember me
-                        </FormLabel>
-                        <FormMessage className="text-sm"/>
-                    </FormItem>
-                )}
-            />
 
             <FormField
                 control={form.control}
@@ -178,7 +156,7 @@ export default function SignupForm() {
                         <FormLabel>
                             {" "}I agree with the Terms and Conditions
                         </FormLabel>
-                        <FormMessage className="text-sm"/>
+                        <FormMessage className="text-xs"/>
                     </FormItem>
                 )}
             />

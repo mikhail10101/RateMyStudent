@@ -4,6 +4,7 @@ import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
+import { Settings } from "lucide-react";
 import { auth, signOut } from "../../../../auth";
 
 export default async function ProfileNavigation() {
@@ -35,15 +36,12 @@ export default async function ProfileNavigation() {
                         <Search placeholder={"Enter name"} tailwind="block rounded-3xl text-base outline-0 placeholder:text-gray-500 h-[2.5rem] w-[20rem] text-left pl-3"/>
                     </div>
                 </div>
-                <form
+                <Link
                     className={clsx({"hidden": !session})}
-                    action={async () => {
-                        'use server';
-                        await signOut();
-                    }}
+                    href="/account/profile"
                 >
-                    <Button className={`${buttonVariants({ variant: "outline" })} mr-12 bg-white text-black`}>Sign out</Button>
-                </form>
+                    <Settings className="mr-12 h-7 w-7" color="white"/>
+                </Link>
                 <div className={clsx({"hidden": session})}>
                     <Link href="/login" className="mr-4 text-white">Log In</Link>
                     <Link href="/signup" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-white text-black`}>Sign Up</Link>

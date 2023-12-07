@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import { black_poppins } from '@/lib/fonts'
-import { buttonVariants } from '../../ui/button'
+import { Button } from '../../ui/button'
 import clsx from 'clsx';
 import { auth } from '../../../../auth';
 
@@ -45,11 +45,19 @@ export default async function HomeInfo() {
                 </div>
             </div>
 
-            <div className={clsx({"hidden": session})}>
-                <Link href="/login" className={`${buttonVariants({ variant: "outline" })} mr-12 bg-black text-white rounded-xl my-12 mx-10 w-48 font-bold`}>Sign up now!</Link>
+            <div className={clsx({ "hidden": session })}>
+                <Link href="/signup">
+                    <Button className={`mr-12 bg-black text-white rounded-full my-14 mx-10 w-60 h-16 text-[1.1rem] font-bold ${black_poppins.className}`}>
+                        Create an account!
+                    </Button>
+                </Link>
             </div>
-            <div className={clsx({"my-12": session},{"hidden":!session})}>
-
+            <div className={clsx({ "my-14": session }, { "hidden": !session })}>
+                <Link href="/account/ratings">
+                    <Button className={`mr-12 bg-black text-white rounded-full my-14 mx-10 w-60 h-16 text-[1.1rem] font-bold ${black_poppins.className}`}>
+                        See my ratings!
+                    </Button>
+                </Link>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import { fetchRatingsByCommenterId } from "@/lib/data"
+import { fetchRatingIdsByCommenterId, fetchRatingById } from "@/lib/data"
 import { auth } from "../../../../auth"
 import { fetchUserByEmail } from "@/lib/data"
 import CommentCard from "../student/comment-card"
@@ -11,7 +11,10 @@ export default async function RatingsTab() {
 
     const { id } = await fetchUserByEmail(email)
 
-    const ratings = await fetchRatingsByCommenterId(id)
+    const ratingIds = await fetchRatingIdsByCommenterId(id)
+    const ratings = await Promise.all(ratingIds.map(async (ratingId) => {
+        return await fetchRatingById(ratingId.id)
+    }))
 
     return (
         <>
