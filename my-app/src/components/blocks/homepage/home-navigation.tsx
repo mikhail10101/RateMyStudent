@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import { Settings } from 'lucide-react'
 
-import { auth } from '../../../../auth'
+import { auth } from '../../../auth'
 
 export default async function HomeNav() {
     const session = await auth()

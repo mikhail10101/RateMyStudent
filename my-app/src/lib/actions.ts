@@ -5,13 +5,13 @@ import { randomUUID } from 'crypto';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { signIn } from '../../auth';
+import { signIn } from '../auth';
 import { AuthError } from 'next-auth';
 import bcrypt from 'bcrypt'
 
 import { fetchUserByEmail } from './data';
 
-import { auth } from '../../auth';
+import { auth } from '../auth';
 
 export async function CreateRating(val: Rating) {
     val.id = randomUUID()

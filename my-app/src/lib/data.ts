@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres'
 import { unstable_noStore as noStore } from 'next/cache'
 import { User, Student, Rating, Vote } from './definitions'
-import { auth } from '../../auth'
+import { auth } from '../auth'
 
 export async function fetchStudents() {
     noStore()

@@ -4,7 +4,7 @@ import EditUnderNav from "./edit-under-nav"
 import HomeFooter from "@/components/blocks/homepage/home-footer"
 import { fetchRatingById, fetchUserByRatingId } from "@/lib/data"
 
-import { auth } from "../../../../../auth"
+import { auth } from "../../../../auth"
 
 export default async function Page({ params }: { params: { id: string }}) {
     const rating = await fetchRatingById(params.id)

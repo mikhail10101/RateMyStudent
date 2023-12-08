@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Button, buttonVariants } from "@/components/ui/button"
 import clsx from "clsx"
 import Temp from "./temp"
-import { auth, signOut } from "../../../../auth"
+import { auth, signOut } from "../../../auth"
 import { Settings } from "lucide-react"
 
 export default async function SearchNavigation() {

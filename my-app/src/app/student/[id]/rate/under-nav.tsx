@@ -3,7 +3,7 @@ import { black_poppins } from "@/lib/fonts"
 
 import { headers } from 'next/headers'
 
-import { auth } from "../../../../../auth";
+import { auth } from "../../../../auth";
 
 export default async function UnderNav() {
     const headersList = headers();

@@ -1,6 +1,6 @@
 import { black_poppins } from "@/lib/fonts";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { signOut } from "../../../../auth";
+import { signOut } from "../../../auth";
 
 export default function SignOut() {
     return (

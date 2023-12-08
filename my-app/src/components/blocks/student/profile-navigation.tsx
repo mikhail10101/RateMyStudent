@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
-import { auth, signOut } from "../../../../auth";
+import { auth, signOut } from "../../../auth";
 
 export default async function ProfileNavigation() {
     const session = await auth()

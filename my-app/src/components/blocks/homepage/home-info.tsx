@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { black_poppins } from '@/lib/fonts'
 import { Button } from '../../ui/button'
 import clsx from 'clsx';
-import { auth } from '../../../../auth';
+import { auth } from '../../../auth';
 
 export default async function HomeInfo() {
     const session = await auth()

@@ -1,5 +1,5 @@
 import { fetchRatingIdsByCommenterId, fetchRatingById } from "@/lib/data"
-import { auth } from "../../../../auth"
+import { auth } from "../../../auth"
 import { fetchUserByEmail } from "@/lib/data"
 import CommentCard from "../student/comment-card"
 import RatingSegment from "./ratings-segment"

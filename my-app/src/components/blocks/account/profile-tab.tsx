@@ -1,5 +1,5 @@
 import { black_poppins } from "@/lib/fonts"
-import { auth } from "../../../../auth"
+import { auth } from "../../../auth"
 import { fetchUserByEmail } from "@/lib/data"
 
 export default async function ProfileTab() {
