@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
-import { signOut } from '../../../../auth'
-import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
 
 import { Settings } from 'lucide-react'
