@@ -76,19 +76,46 @@ export async function CreateStudent(val: Student) {
     redirect(`/student/${id}`)
 }
 
-export async function CreateUser(val: User) {
-    val.id = randomUUID()
-    val.password = await bcrypt.hash(val.password, 10)
+export async function CreateUser(
+    prevState: string | undefined,  
+    val: User
+) {
+    try {
+        val.id = randomUUID()
+        val.password = await bcrypt.hash(val.password, 10)
 
-    const { id, username, email, password } = val
+        const { id, username, email, password } = val
 
-    await sql`
-    INSERT INTO users (id, username, email, password)
-    VALUES (${id}, ${username}, ${email}, ${password})
-    `;
+        const emailcount = await sql`
+            SELECT COUNT(*)
+            FROM users
+            WHERE email = ${email}
+        `
 
-    revalidatePath(`/`)
-    redirect(`/`)
+        if (emailcount.rows[0].count == 1) {
+            return 'Email is already in use'
+        }
+
+        const usercount = await sql`
+            SELECT COUNT (*)
+            FROM users
+            WHERE username = ${username}
+        `
+
+        if (usercount.rows[0].count == 1) {
+            return 'Username is already taken'
+        }
+
+        await sql`
+        INSERT INTO users (id"", username, email, password)
+        VALUES (${id}, ${username}, ${email}, ${password})
+        `;
+        
+        revalidatePath(`/`)
+        redirect(`/`)
+    } catch (e) {
+        return "Error"
+    }
 }
 
 export async function authenticate(
@@ -100,7 +127,6 @@ export async function authenticate(
 
     } catch (error) {
         if (error instanceof AuthError) {
-            console.log("rawr")
             switch (error.type) {
                 case 'CredentialsSignin':
                     return 'Invalid credentials.';

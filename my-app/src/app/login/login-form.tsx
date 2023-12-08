@@ -45,7 +45,6 @@ export default function LoginForm() {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
 
         const formData = new FormData()
         formData.append("username", values.username)
@@ -78,7 +77,7 @@ export default function LoginForm() {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Enter password" {...field} />
+                                    <Input type="password" placeholder="Enter password" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
