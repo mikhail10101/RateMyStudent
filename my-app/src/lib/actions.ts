@@ -30,7 +30,7 @@ export async function CreateRating(val: Rating) {
 
     await sql`
     INSERT INTO ratings (id, student_id, commenter_id, rating, noise, classroom, grade, attendance, likes, dislikes, comment, date)
-    VALUES (${id}, ${student_id}, ${commenter_id}, ${rating}, ${noise}, ${classroom}, ${grade}, ${attendance}, ${likes}, ${dislikes}, ${comment}, ${date.toDateString()})
+    VALUES (${id}, ${student_id}, ${commenter_id}, ${rating}, ${noise}, ${classroom}, ${grade}, ${attendance}, ${likes}, ${dislikes}, ${comment}, ${date.toDateString() + " " + +date.getHours() + ":" + +date.getMinutes() + ":" + +date.getSeconds()})
     `;
 
     await sql`
@@ -77,7 +77,7 @@ export async function CreateStudent(val: Student) {
 }
 
 export async function CreateUser(
-    prevState: string | undefined,  
+    prevState: string | undefined,
     val: User
 ) {
     try {
@@ -110,7 +110,7 @@ export async function CreateUser(
         INSERT INTO users (id"", username, email, password)
         VALUES (${id}, ${username}, ${email}, ${password})
         `;
-        
+
         revalidatePath(`/`)
         redirect(`/`)
     } catch (e) {
@@ -142,33 +142,36 @@ export async function authenticate(
 
 async function fetchPasswordByEmail(email: string) {
     try {
-      console.log(email)
-      const data = await sql`
+        const data = await sql`
         SELECT password
         FROM users
         WHERE email = ${email}
       `
-      if (data.rows[0].length == 0) {
-        return "Not Found"
-      }
-      return data.rows[0].password
+        try {
+            if (data.rows[0].length == 0) {
+                return "Not Found"
+            }
+        } catch (err) {
+            return "Not Found"
+        }
+        return data.rows[0].password
     } catch (error) {
-      console.log('Database error', error)
-      throw new Error('Failed to fetch password')
+        console.log('Database error', error)
+        throw new Error('Failed to fetch password')
     }
-  }
-  
-  export async function CheckPassword(
+}
+
+export async function CheckPassword(
     prevState: string | undefined,
     formData: FormData
-  ) {
+) {
     try {
-      const ans = await fetchPasswordByEmail(formData.get("email")?.toString() || "")
-      return ans
+        const ans = await fetchPasswordByEmail(formData.get("email")?.toString() || "")
+        return ans
     } catch (error) {
-      return "Error"
+        return "Error"
     }
-  }
+}
 
 export async function ChangePassword(curr: string, password: string) {
     const session = await auth()
@@ -180,7 +183,7 @@ export async function ChangePassword(curr: string, password: string) {
     `
 
     if (await bcrypt.compare(curr, data.rows[0].password)) {
-        const hashed_new = await bcrypt.hash(password,10)
+        const hashed_new = await bcrypt.hash(password, 10)
         await sql`
         UPDATE users
         SET password = ${hashed_new}
@@ -241,7 +244,7 @@ export async function Vote(rating_id: string, up: number) {
                     WHERE id = ${rating_id}
                     `
                 }
-            
+
             } else {
                 await sql`
                 UPDATE votes

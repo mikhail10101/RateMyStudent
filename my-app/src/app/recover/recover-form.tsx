@@ -89,8 +89,8 @@ export default function RecoverForm() {
                     {errorMessage && (
                         <>
                             <p className={clsx(
-                                {"text-sm text-red-500": true},
-                                {"text-blue-500": errorMessage === "Password sent to your email!"}
+                                {"text-sm text-red-500": errorMessage !== "Password sent to your email!"},
+                                {"text-sm text-blue-500": errorMessage === "Password sent to your email!"}
                             )}
                             >{errorMessage}</p>
                         </>
