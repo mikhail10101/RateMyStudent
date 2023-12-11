@@ -140,39 +140,6 @@ export async function authenticate(
     }
 }
 
-async function fetchPasswordByEmail(email: string) {
-    try {
-        const data = await sql`
-        SELECT password
-        FROM users
-        WHERE email = ${email}
-      `
-        try {
-            if (data.rows[0].length == 0) {
-                return "Not Found"
-            }
-        } catch (err) {
-            return "Not Found"
-        }
-        return data.rows[0].password
-    } catch (error) {
-        console.log('Database error', error)
-        throw new Error('Failed to fetch password')
-    }
-}
-
-export async function CheckPassword(
-    prevState: string | undefined,
-    formData: FormData
-) {
-    try {
-        const ans = await fetchPasswordByEmail(formData.get("email")?.toString() || "")
-        return ans
-    } catch (error) {
-        return "Error"
-    }
-}
-
 export async function ChangePassword(curr: string, password: string) {
     const session = await auth()
 

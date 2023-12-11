@@ -99,8 +99,7 @@ export default function LoginForm() {
                 </div>
             </Form>
             <div className="w-8/12 flex flex-col h-[10rem] justify-evenly items-center mb-8">
-                <p className="text-center text-sm">Rate My Students is designed and target to all audiences and is governed and operated in accordance to US and Philippine Law.</p>
-                <Link href="/recover" className="text-[1rem] text-blue-600 font-bold">Forgot password?</Link>
+                <p className="text-center text-sm">Rate My Students is designed and target to all audiences and is governed and operated in accordance to US Law.</p>
                 <span className="text-xs">Don't have an account yet? <Link href="/signup" className="text-blue-600 font-bold">Sign up!</Link></span>
             </div>
         </div>
