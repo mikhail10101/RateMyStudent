@@ -265,3 +265,4 @@ export async function fetchVoteByRatingId(rating_id: string) {
     throw new Error('Failed to fetch votes')
   }
 }
+

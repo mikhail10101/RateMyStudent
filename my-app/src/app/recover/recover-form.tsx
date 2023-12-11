@@ -23,68 +23,63 @@ import { black_poppins } from '@/lib/fonts'
 
 import { useFormState, useFormStatus } from 'react-dom'
 import { authenticate } from '@/lib/actions';
+import { CheckPassword } from '@/lib/actions';
 
-export default function LoginForm() {
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined)
+export default function RecoverForm() {
+    const [message, dispatch] = useFormState(CheckPassword, undefined)
+
+    var errorMessage
+    if (message === undefined) {
+        errorMessage = undefined
+    } else if (message === "Not Found") {
+        errorMessage = "Email not found"
+    } else if (message === "Error") {
+        errorMessage = "Email not found"
+    } else {
+        errorMessage = "Password sent to your email!"
+    }
 
     const formSchema = z.object({
-        username: z.
-            string().
-            min(1, { message: "Must enter a username" }),
-        password: z.
-            string().
-            min(1, { message: "Must enter a password" })
+        email: z
+            .string()
+            .email()
+            .min(1)
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
-            password: ""
+            email: ""
         }
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
 
         const formData = new FormData()
-        formData.append("username", values.username)
-        formData.append("password", values.password)
+        formData.append("email", values.email)
         dispatch(formData)
     }
 
     return (
         <div className="bg-white w-[35rem] h-[39rem] flex flex-col items-center justify-evenly">
-            <p className={`${black_poppins.className} mt-8 text-5xl`}>Log In</p>
+            <p className={`${black_poppins.className} mt-8 text-5xl`}>Recover Password</p>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='w-8/12 space-y-3'>
                     <FormField
                         control={form.control}
-                        name="username"
+                        name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>Enter email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Enter username" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input type="password" placeholder="Enter password" {...field} />
+                                    <Input placeholder="Enter email" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <div></div>
-                    <LoginButton />
+                    <SubmitButton />
                 </form>
                 <div
                     className={clsx({"flex h-8 items-end space-x-1": true},{"hidden": !(errorMessage)})}
@@ -93,21 +88,24 @@ export default function LoginForm() {
                 >
                     {errorMessage && (
                         <>
-                            <p className="text-sm text-red-500">Invalid credentials</p>
+                            <p className={clsx(
+                                {"text-sm text-red-500": true},
+                                {"text-blue-500": errorMessage === "Password sent to your email!"}
+                            )}
+                            >{errorMessage}</p>
                         </>
                     )}
                 </div>
             </Form>
             <div className="w-8/12 flex flex-col h-[10rem] justify-evenly items-center mb-8">
                 <p className="text-center text-sm">Rate My Students is designed and target to all audiences and is governed and operated in accordance to US and Philippine Law.</p>
-                <Link href="/recover" className="text-[1rem] text-blue-600 font-bold">Forgot password?</Link>
                 <span className="text-xs">Don't have an account yet? <Link href="/signup" className="text-blue-600 font-bold">Sign up!</Link></span>
             </div>
         </div>
     )
 }
 
-function LoginButton() {
+function SubmitButton() {
     const { pending } = useFormStatus()
 
     return (
