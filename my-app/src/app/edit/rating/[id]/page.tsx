@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { id: string }}) {
 
                 <div className="flex flex-col items-center">
                     <div className="w-[40rem] max-w-[80%] mt-4">
-                        <EditRatingForm rating={rating}/>
+                        <EditRatingForm rating={rating.r}/>
                     </div>
                 </div>
                 
