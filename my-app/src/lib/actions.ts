@@ -82,6 +82,8 @@ export async function CreateUser(
 ) {
     var result = "Success";
 
+    
+
     try {
         val.id = randomUUID()
         val.password = await bcrypt.hash(val.password, 10)
@@ -89,22 +91,27 @@ export async function CreateUser(
         const { id, username, email, password } = val
 
         const emailcount = await sql`
-            SELECT COUNT(*)
+            SELECT *
             FROM users
             WHERE email = ${email}
         `
-
-        if (emailcount.rows[0].count == 1) {
+        
+        if (emailcount.rowCount == 1) {
+            result = "Error"
             return 'Email is already in use'
         }
+        
+
+        console.log(emailcount);
 
         const usercount = await sql`
-            SELECT COUNT (*)
+            SELECT *
             FROM users
             WHERE username = ${username}
         `
 
-        if (usercount.rows[0].count == 1) {
+        if (usercount.rowCount == 1) {
+            result = "Error"
             return 'Username is already taken'
         }
 
