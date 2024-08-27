@@ -80,6 +80,8 @@ export async function CreateUser(
     prevState: string | undefined,
     val: User
 ) {
+    var result = "Success";
+
     try {
         val.id = randomUUID()
         val.password = await bcrypt.hash(val.password, 10)
@@ -107,14 +109,20 @@ export async function CreateUser(
         }
 
         await sql`
-        INSERT INTO users (id"", username, email, password)
+        INSERT INTO users (id, username, email, password)
         VALUES (${id}, ${username}, ${email}, ${password})
         `;
-
-        revalidatePath(`/`)
-        redirect(`/`)
+        
     } catch (e) {
+        console.log(e)
+        result = "Error"
         return "Error"
+
+    } finally {
+        if (result === "Success") {
+            revalidatePath(`/`)
+            redirect(`/`)
+        }
     }
 }
 
