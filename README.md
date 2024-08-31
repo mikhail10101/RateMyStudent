@@ -1,6 +1,6 @@
 # RateMyStudent
 
-RateMyProfessor inspired project (not an exact clone)
+RateMyProfessor inspired NextJS project
 
 Tools:
 - NextJS (Typescript)
@@ -8,4 +8,5 @@ Tools:
 - Tailwind CSS
 
 - NextAuth for authorization
+- Bcrypt for encryption
 - Shadcn for UX/UI
